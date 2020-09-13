@@ -1,0 +1,42 @@
+Removed Pin From Net: NetName=GND Pin=C2-2
+Removed Pin From Net: NetName=GND Pin=C3-1
+Removed Pin From Net: NetName=VCC Pin=C3-2
+Removed Pin From Net: NetName=GND Pin=D6-1
+Removed Pin From Net: NetName=GND Pin=D8-1
+Removed Pin From Net: NetName=DC0 Pin=R8-1
+Removed Pin From Net: NetName=VCC Pin=R8-2
+Removed Pin From Net: NetName=VCC Pin=R10-2
+Removed Pin From Net: NetName=OPTO Pin=R12-1
+Removed Pin From Net: NetName=DC0 Pin=T1-2
+Removed Pin From Net: NetName=GND Pin=T1-3
+Removed Pin From Net: NetName=GND Pin=T2-3
+Removed Pin From Net: NetName=GND Pin=U3-2
+Removed Pin From Net: NetName=VCC Pin=U3-3
+Removed Member From Class: ClassName=Controlador de velocidad Member=C1
+Removed Member From Class: ClassName=Controlador de velocidad Member=C2
+Removed Member From Class: ClassName=Controlador de velocidad Member=C3
+Removed Member From Class: ClassName=Controlador de velocidad Member=D4
+Removed Member From Class: ClassName=Controlador de velocidad Member=D5
+Removed Member From Class: ClassName=Controlador de velocidad Member=D6
+Removed Member From Class: ClassName=Controlador de velocidad Member=D7
+Removed Member From Class: ClassName=Controlador de velocidad Member=D8
+Removed Member From Class: ClassName=Controlador de velocidad Member=F1
+Removed Member From Class: ClassName=Controlador de velocidad Member=F2
+Removed Member From Class: ClassName=Controlador de velocidad Member=F3
+Removed Member From Class: ClassName=Controlador de velocidad Member=F4
+Removed Member From Class: ClassName=Controlador de velocidad Member=FB1
+Removed Member From Class: ClassName=Controlador de velocidad Member=J2
+Removed Member From Class: ClassName=Controlador de velocidad Member=J3
+Removed Member From Class: ClassName=Controlador de velocidad Member=MAC1
+Removed Member From Class: ClassName=Controlador de velocidad Member=MOC1
+Removed Member From Class: ClassName=Controlador de velocidad Member=R8
+Removed Member From Class: ClassName=Controlador de velocidad Member=R9
+Removed Member From Class: ClassName=Controlador de velocidad Member=R10
+Removed Member From Class: ClassName=Controlador de velocidad Member=R11
+Removed Member From Class: ClassName=Controlador de velocidad Member=R12
+Removed Member From Class: ClassName=Controlador de velocidad Member=R13
+Removed Member From Class: ClassName=Controlador de velocidad Member=R14
+Removed Member From Class: ClassName=Controlador de velocidad Member=T1
+Removed Member From Class: ClassName=Controlador de velocidad Member=T2
+Removed Member From Class: ClassName=Controlador de velocidad Member=U3
+Added Room: Name=Controlador de velocidad

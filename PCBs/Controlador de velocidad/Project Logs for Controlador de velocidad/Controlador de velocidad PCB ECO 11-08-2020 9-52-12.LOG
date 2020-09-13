@@ -1,0 +1,5 @@
+Added Pin To Net: NetName=INDICADOR_VEL Pin=U1-11
+Added Net: Name=INDICADOR_VEL
+Added Net: Name=NetD4_1
+Added Member To Class: ClassName=Controlador de velocidad Member=Component  24C65T/SM
+Added Room: Name=Controlador de velocidad
