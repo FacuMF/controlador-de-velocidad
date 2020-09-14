@@ -1,0 +1,8 @@
+Added Component: Designator=J13(SIP2)
+Added Component: Designator=J14(SIP2)
+Added Pin To Net: NetName=SH16-8 Pin=J13-1
+Added Pin To Net: NetName=SH16-5 Pin=J13-2
+Added Pin To Net: NetName=SH4-4 Pin=J14-1
+Added Pin To Net: NetName=SH4-3 Pin=J14-2
+Added Member To Class: ClassName=Controlador de velocidad Member=Component J13 CON2
+Added Member To Class: ClassName=Controlador de velocidad Member=Component J14 CON2
