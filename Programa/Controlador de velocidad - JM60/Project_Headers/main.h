@@ -16,8 +16,10 @@
 #define _CV PTADD_PTADD2
 #define  CV PTAD_PTAD2
 
-#define _LED_INDICADOR PTCDD_PTCDD1
-#define LED_INDICADOR PTCD_PTCD1
+#define _DATA PTCDD_PTCDD0
+#define DATA PTCD_PTCD0
+#define _CLK PTCDD_PTCDD1
+#define CLK PTCD_PTCD1
 
 #define _RX PTADD_PTADD0
 #define RX PTAD_PTAD0
@@ -39,8 +41,10 @@
 #define _CV PTCDD_PTCDD5
 #define  CV PTCD_PTCD5
 
-#define _LED_INDICADOR PTCDD_PTCDD1
-#define LED_INDICADOR PTCD_PTCD1
+#define _DATA PTCDD_PTCDD0
+#define DATA PTCD_PTCD0
+#define _CLK PTCDD_PTCDD1
+#define CLK PTCD_PTCD1
 
 #define _RX PTADD_PTADD0
 #define RX PTAD_PTAD0
@@ -60,7 +64,7 @@
 #define IntDC0 KBIES_KBEDG0
 #define IntRX KBIES_KBEDG1
 
-#define LIMITE_VELOCIDADES 10
+#define LIMITE_VELOCIDADES 9
 
 #define HORAS_BAJO 2500
 #define HORAS_MEDIO 5000
@@ -77,16 +81,16 @@
 #define PULSADO 0
 
 enum{
-	VEL_1 = 1,
-	VEL_2  = 2,
-	VEL_3 = 3,
-	VEL_4 = 4,
-	VEL_5 = 5,
-	VEL_6 = 6,
-	VEL_7 = 7,
-	VEL_8 = 8,
-	VEL_9 = 9,
-	VEL_10 = 10,
+	VEL_1 = 0,
+	VEL_2  = 1,
+	VEL_3 = 2,
+	VEL_4 = 3,
+	VEL_5 = 4,
+	VEL_6 = 5,
+	VEL_7 = 6,
+	VEL_8 = 7,
+	VEL_9 = 8,
+	VEL_10 = 9,
 	
 };
 
@@ -113,7 +117,7 @@ void decodificado(int);
 void mostrarUso(char);
 char estadoPOnOff(char*, char*);
 char estadoPCV(char*, char*);
-void indicarVelocidadElegida(void);
+void indicarVelocidadElegida(char);
 void titilar(int);
 void cambiarVelocidad(void);
 

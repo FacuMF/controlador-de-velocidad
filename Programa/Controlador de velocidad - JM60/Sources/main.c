@@ -17,16 +17,17 @@ char aux[41];
 
 char estadoActual = '0';
 
-char secuencia[10][20] = {{1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,1},
-						  {1,0,0,1,0,0,1,0,0,1,1,0,1,0,0,1,0,0,1,1},
-						  {1,0,0,1,1,0,1,1,0,1,1,0,1,0,0,1,0,0,1,1},
-						  {1,0,0,1,1,0,1,1,0,1,1,0,1,0,0,1,1,0,1,1},
-						  {1,0,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1},
-						  {1,1,1,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1},
-						  {1,1,1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,0,1,1},
-						  {1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1},
-					      {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1},
-					      {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
+char secuencia[10][20] = { { 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
+		0, 1, 1 },
+		{ 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1 }, { 1, 0,
+				0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1 }, { 1, 0,
+				0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1 }, { 1, 0,
+				0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1 }, { 1, 1,
+				1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1 }, { 1, 1,
+				1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1 }, { 1, 1,
+				1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1 }, { 1, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 }, { 1, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 char velElegida = VEL_1;
 
 char usoActual = BAJO;
@@ -37,6 +38,9 @@ char contadorSegundos = 0;
 char contadorMinutos = 0;
 int cantidadHoras = 1;
 char pulsos = 0;
+
+unsigned char digito[10] = { 0b11111100, 0b01100000, 0b11011010, 0b11110010,
+		0b01100110, 0b10110110, 0b10111110, 0b11100000, 0b11111110, 0b11110110 };
 
 void main(void) {
 	char estadoOnOff = 0;
@@ -64,17 +68,17 @@ void main(void) {
 			mostrarUso(usoActual);
 			if (estadoCV == 1 && estadoOnOff == 0) {
 				cambiarVelocidad();
-				indicarVelocidadElegida();
+				indicarVelocidadElegida(velElegida);
 			}
 		}
-		if(ON_OFF == 1 && CV == 1){
+		if (ON_OFF == 1 && CV == 1 || estadoOnOff == 1  && estadoCV == 1) {
 			reiniciar();
 		}
 
 	}
 }
 
-void initDeteccionFlancos(){
+void initDeteccionFlancos() {
 	//TPM1SC = 0b00000010; //divisor de 4 sin interrupciones
 	TPM1C1SC = 0b01001100; //configurtado para flancos ascendentes 
 	TPM1SC_CLKSB = 0;
@@ -131,70 +135,73 @@ void decodificado(int res) {
 	}
 }
 
-void leerCodigo(char* codigo){
+void leerCodigo(char* codigo) {
 	leerEstado(codigo);
 	leerVelocidad(codigo);
 }
 
-void leerEstado(char* codigo){
-	if(codigo[3] == '0' && estadoActual == '1'){
+void leerEstado(char* codigo) {
+	if (codigo[3] == '0' && estadoActual == '1') {
 		apagar();
 		estadoActual = '0';
 	}
-	if(codigo[3] == '1' && estadoActual == '0'){
+	if (codigo[3] == '1' && estadoActual == '0') {
 		encender();
 		estadoActual = '1';
 	}
 }
 
-void leerVelocidad(char* codigo){
+void leerVelocidad(char* codigo) {
 	char temperatura[4];
-	int numero;
+	char numero;
 	temperatura[0] = codigo[11];
 	temperatura[1] = codigo[10];
 	temperatura[2] = codigo[9];
 	temperatura[3] = codigo[8];
-	numero = atoi(temperatura) - 19;//20° a 29°
-	velElegida = numero; 
+	numero = atoi(temperatura) - 19; //20° a 29°
+	velElegida = numero;
 }
 
-void reiniciar(){
+void reiniciar() {
 	int i;
 	char reinicioCompleto = 0;
 	TPM2SC = 0b0001111;
-	TPM2MOD = 62499;//1s
-	for(i = 0; i<TIEMPO_REINICIO; i++){
-		while(ON_OFF == 1 && CV == 1 && TPM2SC_TOF == 0);
+	TPM2MOD = 62499; //1s
+	for (i = 0; i < TIEMPO_REINICIO; i++) {
+		while (ON_OFF == 1 && CV == 1 && TPM2SC_TOF == 0)
+			;
 		TPM2SC_TOF = 0;
-		if(ON_OFF == 1 && CV == 1) reinicioCompleto++;
+		if (ON_OFF == 1 && CV == 1)
+			reinicioCompleto++;
 	}
 	TPM2SC = 0;
-	if(reinicioCompleto == TIEMPO_REINICIO){
+	if (reinicioCompleto == TIEMPO_REINICIO) {
 		indicarReinicio();
 		reiniciarHoras();
 	}
 }
-void indicarReinicio(){
+void indicarReinicio() {
 	int i;
 	TPM2SC = 0b0001111;
-	TPM2MOD = 31249;//0.5s
+	TPM2MOD = 31249; //0.5s
 	USO_BAJO = APAGADO;
 	USO_MEDIO = APAGADO;
 	USO_ALTO = APAGADO;
-	for(i = 0; i<6; i++){
+	for (i = 0; i < 6; i++) {
 		USO_BAJO = ~USO_BAJO;
 		USO_MEDIO = ~USO_MEDIO;
-		USO_ALTO= ~USO_ALTO;
-		while(TPM2SC_TOF == 0);
+		USO_ALTO = ~USO_ALTO;
+		while (TPM2SC_TOF == 0)
+			;
 		TPM2SC_TOF = 0;
 	}
 	TPM2SC = 0;
 }
 
-void reiniciarHoras(){
+void reiniciarHoras() {
 	escribirHorasEnMemoria(0);
 }
-void cambiarVelocidad(){
+void cambiarVelocidad() {
 	(velElegida == LIMITE_VELOCIDADES) ? velElegida = VEL_1 : velElegida++;
 }
 
@@ -203,13 +210,15 @@ void inicializacionPuertos() {
 	_USO_MEDIO = SALIDA;
 	_USO_ALTO = SALIDA;
 	_OPTO = SALIDA;
-	_LED_INDICADOR = SALIDA;
+	_DATA = SALIDA;
+	_CLK = SALIDA;
 
 	USO_BAJO = APAGADO;
 	USO_MEDIO = APAGADO;
 	USO_ALTO = APAGADO;
 	OPTO = APAGADO;
-	LED_INDICADOR = APAGADO;
+	DATA = APAGADO;
+	CLK = APAGADO;
 
 	_ON_OFF = ENTRADA;
 	_CV = ENTRADA;
@@ -292,27 +301,16 @@ char estadoPCV(char* pCV, char* aux) {
 	return *aux;
 }
 
-void indicarVelocidadElegida(){
-	titilar(velElegida);
-}
-
-void titilar(int veces) {
-	int i = 0;
-	TPM2SC = 0b0001111;
-	TPM2MOD = 31249;//0.5s
-	for (i = 0; i < veces ; i++) {
-		LED_INDICADOR = ENCENDIDO;
-		while (!TPM2SC_TOF) {
-		}
-		TPM2SC_TOF = 0;
-		LED_INDICADOR = APAGADO;
-		while (!TPM2SC_TOF) {
-		}
-		TPM2SC_TOF = 0;
+void indicarVelocidadElegida(char velElegida) {
+	int i;
+	unsigned char digitoMostrado;
+	digitoMostrado = digito[velElegida];
+	for (i = 0; i <= 7; i++) {
+		DATA = digitoMostrado & 1;
+		CLK = 1;
+		CLK = 0;
+		digitoMostrado = digitoMostrado >> 1;
 	}
-
-	LED_INDICADOR = APAGADO;
-	TPM2SC = 0;
 }
 
 void apagar() {
@@ -331,22 +329,22 @@ void encender() {
 	controlEncendido = 1;
 }
 
-void determinarUso(int horas){
-	if(horas > 0 && horas<= HORAS_BAJO)
+void determinarUso(int horas) {
+	if (horas > 0 && horas <= HORAS_BAJO)
 		usoActual = BAJO;
-	if(horas > HORAS_BAJO && horas<= HORAS_MEDIO)
+	if (horas > HORAS_BAJO && horas <= HORAS_MEDIO)
 		usoActual = MEDIO;
-	if(horas > HORAS_MEDIO)
+	if (horas > HORAS_MEDIO)
 		usoActual = ALTO;
-	
+
 }
 
-int leerHorasDeMemoria(){
+int leerHorasDeMemoria() {
 	int horasLeidas;
 	unsigned char horas[4];
-	leer_memo(horas,0,4);
+	leer_memo(horas, 0, 4);
 	horasLeidas = atoi(horas);
-	return horasLeidas;	
+	return horasLeidas;
 }
 
 void inicializacionTimer() {
@@ -365,10 +363,8 @@ void inicializacionPinInterrupts() {
 
 __interrupt 25 void pinInterrupt() {
 	KBISC_KBACK = 0;
-	if(DC0)
-		manejarDC0();
+	manejarDC0();
 }
-
 
 __interrupt 15 void tm1Interrupt(void) {
 	TPM1SC_TOF = 0;
@@ -391,42 +387,42 @@ void escribirHorasEnMemoria(int horas) {
 	char i;
 	unsigned char horasStr[4];
 	int cantidadARellenar;
-	memcpy(horasStr, my_itoa(horas),4);
-	cantidadARellenar = 4 - strlen(horasStr); 
-	for(i = 0; i< cantidadARellenar; i++)
+	memcpy(horasStr, my_itoa(horas), 4);
+	cantidadARellenar = 4 - strlen(horasStr);
+	for (i = 0; i < cantidadARellenar; i++)
 		horasStr[i] = '0';
 	escribir_memo(horasStr, 0, strlen(horasStr));
 }
 
-void manejarDC0(){
-	if(cicloCompleto()){
-		if(contadorCiclos <20){
+void manejarDC0() {
+	if (cicloCompleto()) {
+		if (contadorCiclos < 20) {
 			OPTO = secuencia[velElegida][contadorCiclos];
 			contadorCiclos++;
-		}
-		else
+		} else
 			contadorCiclos = 0;
 	}
 }
 
-char cicloCompleto(){
+char cicloCompleto() {
 	char res = (pulsos == 2) ? 1 : 0;
-	if(pulsos < 2) pulsos++;
-	else pulsos = 0;
+	if (pulsos < 2)
+		pulsos++;
+	else
+		pulsos = 0;
 	return res;
 }
 
 unsigned char* my_itoa(int number) {
-   unsigned char str[4]; 
-   sprintf(str, "%d", number);
-   return str;
+	unsigned char str[4];
+	sprintf(str, "%d", number);
+	return str;
 }
 
 /*
  * DCO:
  * - Las interrupciones llegan cada 2 ms, teniendo en cuenta que un ciclo entero son 
  */
-
 
 /*
  * Memoria
