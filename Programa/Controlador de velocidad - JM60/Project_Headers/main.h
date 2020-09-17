@@ -9,6 +9,8 @@
 #define MAIN_H_
 
 #include "i2c.h"
+#include "decodificacion.h"
+#include "utils.h"
 
 //SH4
 /*#define _ON_OFF PTADD_PTADD2
@@ -66,9 +68,6 @@
 
 #define LIMITE_VELOCIDADES 9
 
-#define HORAS_BAJO 2500
-#define HORAS_MEDIO 5000
-
 #define TIEMPO_REINICIO 3
 
 #define ENCENDIDO 1
@@ -79,6 +78,8 @@
 
 #define ABIERTO 1
 #define PULSADO 0
+
+#define VACIO 0b00000000
 
 enum{
 	VEL_1 = 0,
@@ -95,13 +96,13 @@ enum{
 };
 
 
-enum{
-	OFF = 0,
-	BAJO = 1,
-	MEDIO = 2,
-	ALTO = 3
-};
 
+
+enum{
+	cambioDeModo,
+	modoNormal,
+	modoServicio
+};
 enum {
 	primeraMedicion, segundaMedicion
 };
@@ -118,7 +119,6 @@ void mostrarUso(char);
 char estadoPOnOff(char*, char*);
 char estadoPCV(char*, char*);
 void indicarVelocidadElegida(char);
-void titilar(int);
 void cambiarVelocidad(void);
 
 void manejarDC0(void);
@@ -127,20 +127,15 @@ void manejarRX(void);
 void apagar(void);
 void apagarTimer(void);
 void encender(void);
-void reiniciar(void);
+void iniciarCambioDeModo(void);
 void reiniciarHoras(void);
-void indicarReinicio(void);
+void indicarCambioDeModo(void);
 
 void escribirHorasEnMemoria(int);
 int leerHorasDeMemoria(void);
-void determinarUso(int);
 
-void leerCodigo(char*);
-void leerEstado(char*);
-void leerVelocidad(char*);
 
-char* my_itoa(int);
-char cicloCompleto(void);
-
+void estadoControl(char);
+void setVelocidad(char);
 
 #endif /* MAIN_H_ */

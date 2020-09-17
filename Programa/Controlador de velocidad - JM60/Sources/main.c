@@ -17,17 +17,17 @@ char aux[41];
 
 char estadoActual = '0';
 
-char secuencia[10][20] = { 
-		{ 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1 },
-		{ 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1 }, 
-		{ 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1 }, 
-		{ 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1 }, 
-		{ 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1 }, 
-		{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1 }, 
-		{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1 }, 
-		{ 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1 }, 
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 }, 
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
+char secuencia[10][20] = { { 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
+		0, 1, 1 },
+		{ 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1 }, { 1, 0,
+				0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1 }, { 1, 0,
+				0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1 }, { 1, 0,
+				0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1 }, { 1, 1,
+				1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1 }, { 1, 1,
+				1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1 }, { 1, 1,
+				1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1 }, { 1, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 }, { 1, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 char velElegida = VEL_1;
 
 char usoActual = BAJO;
@@ -41,7 +41,7 @@ char pulsos = 0;
 
 unsigned char digito[10] = { 0b11111100, 0b01100000, 0b11011010, 0b11110010,
 		0b01100110, 0b10110110, 0b10111110, 0b11100000, 0b11111110, 0b11110110 };
-
+char estado = 1;
 void main(void) {
 	char estadoOnOff = 0;
 	char estadoCV = 0;
@@ -56,23 +56,35 @@ void main(void) {
 
 	//TODO: grabar 0s en la memoria para que empiece bien
 	for (;;) {
-		estadoOnOff = estadoPOnOff(&pOnOff, &auxOnOff);
-		estadoCV = estadoPCV(&pCV, &auxCV);
+		if (ON_OFF == 1 && CV == 1) {
+			estado = cambioDeModo;
+		} else {
+			estadoOnOff = estadoPOnOff(&pOnOff, &auxOnOff);
+			estadoCV = estadoPCV(&pCV, &auxCV);
 
-		if (estadoOnOff == 1 && estadoCV == 0) {
-			(controlEncendido) ? apagar() : encender();
-		}
+			if (estadoOnOff == 1 && estadoCV == 0) {
+				(controlEncendido) ? apagar() : encender();
+			}
 
-		if (controlEncendido) {
-			determinarUso(cantidadHoras);
-			mostrarUso(usoActual);
-			if (estadoCV == 1 && estadoOnOff == 0) {
-				cambiarVelocidad();
-				indicarVelocidadElegida(velElegida);
+			if (controlEncendido) {
+				usoActual = determinarUso(cantidadHoras);
+				mostrarUso(usoActual);
+				if (estadoCV == 1 && estadoOnOff == 0) {
+					cambiarVelocidad();
+					indicarVelocidadElegida(velElegida);
+				}
 			}
 		}
-		if (ON_OFF == 1 && CV == 1 || estadoOnOff == 1 && estadoCV == 1) {
-			reiniciar();
+		
+		switch(estado){
+			case cambioDeModo:
+				//TODO que devuelva si cambia a modo normal o servicio
+				estado = iniciarCambioDeModo();
+				break;
+			case modoNormal:
+				break;
+			case modoServicio:
+				break;
 		}
 
 	}
@@ -84,6 +96,38 @@ void initDeteccionFlancos() {
 	TPM1SC_CLKSB = 0;
 	TPM1SC_CLKSA = 1;
 }
+
+void inicializacionPuertos() {
+	_USO_BAJO = SALIDA;
+	_USO_MEDIO = SALIDA;
+	_USO_ALTO = SALIDA;
+	_OPTO = SALIDA;
+
+	USO_BAJO = APAGADO;
+	USO_MEDIO = APAGADO;
+	USO_ALTO = APAGADO;
+	OPTO = APAGADO;
+
+	_ON_OFF = ENTRADA;
+	_CV = ENTRADA;
+	_RX = ENTRADA;
+	_DC0 = ENTRADA;
+}
+
+void inicializacionTimer() {
+	TPM1SC = 0b01001111;
+	TPM1MOD = 62499; //Divisor: 128 => TOF cada 1s
+}
+
+void inicializacionPinInterrupts() {
+	KBISC = 0; //reinicio
+	IntDC0 = 1; //activo int por flag asc para DC0
+	//TODO: ver como obtener señal de rx con el proyecto del receptor
+	KBIPE = 0x03; //Interrupciones para G0 y G1 
+	KBISC_KBACK = 0;
+	KBISC = 0x02; //int habilitadas y solo detecta flancos asc y desc
+}
+
 
 __interrupt 11 void tovf(void) {
 	if (esperoSigInstruccion == TRUE) {
@@ -117,6 +161,7 @@ void tiempoDeMedicion(void) {
 }
 
 void decodificado(int res) {
+	char onOff, velocidad;
 	if (res > 800 && res <= 1300) {
 		v[contadorPulsos] = '0';
 		contadorPulsos++;
@@ -131,38 +176,18 @@ void decodificado(int res) {
 		TPM1C0SC_ELS0B = 0;
 		TPM1C0SC_ELS0A = 1;
 		contadorPulsos = 0;
-		leerCodigo(v);
+		onOff = leerEstado(v, estadoActual);
+		velocidad = leerVelocidad(v);
+		estadoControl(onOff);
+		setVelocidad(velocidad);
 	}
 }
 
-void leerCodigo(char* codigo) {
-	leerEstado(codigo);
-	leerVelocidad(codigo);
+void estadoControl(char onOff){
+	(onOff)? encender() : apagar(); 
 }
 
-void leerEstado(char* codigo) {
-	if (codigo[3] == '0' && estadoActual == '1') {
-		apagar();
-		estadoActual = '0';
-	}
-	if (codigo[3] == '1' && estadoActual == '0') {
-		encender();
-		estadoActual = '1';
-	}
-}
-
-void leerVelocidad(char* codigo) {
-	char temperatura[4];
-	char numero;
-	temperatura[0] = codigo[11];
-	temperatura[1] = codigo[10];
-	temperatura[2] = codigo[9];
-	temperatura[3] = codigo[8];
-	numero = atoi(temperatura) - 19; //20° a 29°
-	velElegida = numero;
-}
-
-void reiniciar() {
+char iniciarCambioDeModo() {
 	int i;
 	char reinicioCompleto = 0;
 	TPM2SC = 0b0001111;
@@ -176,21 +201,21 @@ void reiniciar() {
 	}
 	TPM2SC = 0;
 	if (reinicioCompleto == TIEMPO_REINICIO) {
-		indicarReinicio();
-		reiniciarHoras();
+		indicarCambioDeModo();
+		//reiniciarHoras();
+		if(estado == modoNormal)
+			return modoServicio;
+		if(estado == modoServicio)
+			return modoNormal;
 	}
 }
-void indicarReinicio() {
+void indicarCambioDeModo() {
 	int i;
 	TPM2SC = 0b0001111;
 	TPM2MOD = 31249; //0.5s
-	USO_BAJO = APAGADO;
-	USO_MEDIO = APAGADO;
-	USO_ALTO = APAGADO;
+	mostrarNumero(VACIO);
 	for (i = 0; i < 6; i++) {
-		USO_BAJO = ~USO_BAJO;
-		USO_MEDIO = ~USO_MEDIO;
-		USO_ALTO = ~USO_ALTO;
+		mostrarNumero(~VACIO);
 		while (TPM2SC_TOF == 0)
 			;
 		TPM2SC_TOF = 0;
@@ -205,26 +230,11 @@ void cambiarVelocidad() {
 	(velElegida == LIMITE_VELOCIDADES) ? velElegida = VEL_1 : velElegida++;
 }
 
-void inicializacionPuertos() {
-	_USO_BAJO = SALIDA;
-	_USO_MEDIO = SALIDA;
-	_USO_ALTO = SALIDA;
-	_OPTO = SALIDA;
-	_DATA = SALIDA;
-	_CLK = SALIDA;
-
-	USO_BAJO = APAGADO;
-	USO_MEDIO = APAGADO;
-	USO_ALTO = APAGADO;
-	OPTO = APAGADO;
-	DATA = APAGADO;
-	CLK = APAGADO;
-
-	_ON_OFF = ENTRADA;
-	_CV = ENTRADA;
-	_RX = ENTRADA;
-	_DC0 = ENTRADA;
+void setVelocidad(char vel){
+	velElegida = vel + 1;
 }
+
+
 
 void mostrarUso(char estado) {
 	switch (estado) {
@@ -302,15 +312,7 @@ char estadoPCV(char* pCV, char* aux) {
 }
 
 void indicarVelocidadElegida(char velElegida) {
-	int i;
-	unsigned char digitoMostrado;
-	digitoMostrado = digito[velElegida];
-	for (i = 0; i <= 7; i++) {
-		DATA = digitoMostrado & 1;
-		CLK = 1;
-		CLK = 0;
-		digitoMostrado = digitoMostrado >> 1;
-	}
+	mostrarNumero(digito[velElegida]);
 }
 
 void apagar() {
@@ -329,15 +331,6 @@ void encender() {
 	controlEncendido = 1;
 }
 
-void determinarUso(int horas) {
-	if (horas > 0 && horas <= HORAS_BAJO)
-		usoActual = BAJO;
-	if (horas > HORAS_BAJO && horas <= HORAS_MEDIO)
-		usoActual = MEDIO;
-	if (horas > HORAS_MEDIO)
-		usoActual = ALTO;
-
-}
 
 int leerHorasDeMemoria() {
 	int horasLeidas;
@@ -345,20 +338,6 @@ int leerHorasDeMemoria() {
 	leer_memo(horas, 0, 4);
 	horasLeidas = atoi(horas);
 	return horasLeidas;
-}
-
-void inicializacionTimer() {
-	TPM1SC = 0b01001111;
-	TPM1MOD = 62499; //Divisor: 128 => TOF cada 1s
-}
-
-void inicializacionPinInterrupts() {
-	KBISC = 0; //reinicio
-	IntDC0 = 1; //activo int por flag asc para DC0
-	//TODO: ver como obtener señal de rx con el proyecto del receptor
-	KBIPE = 0x03; //Interrupciones para G0 y G1 
-	KBISC_KBACK = 0;
-	KBISC = 0x02; //int habilitadas y solo detecta flancos asc y desc
 }
 
 __interrupt 25 void pinInterrupt() {
@@ -395,7 +374,7 @@ void escribirHorasEnMemoria(int horas) {
 }
 
 void manejarDC0() {
-	if (cicloCompleto()) {
+	if (cicloCompleto(pulsos)) {
 		if (contadorCiclos < 20) {
 			OPTO = secuencia[velElegida][contadorCiclos];
 			contadorCiclos++;
@@ -404,20 +383,7 @@ void manejarDC0() {
 	}
 }
 
-char cicloCompleto() {
-	char res = (pulsos == 2) ? 1 : 0;
-	if (pulsos < 2)
-		pulsos++;
-	else
-		pulsos = 0;
-	return res;
-}
 
-unsigned char* my_itoa(int number) {
-	unsigned char str[4];
-	sprintf(str, "%d", number);
-	return str;
-}
 
 /*
  * DCO:

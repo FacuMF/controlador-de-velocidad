@@ -2,7 +2,7 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-#Progress monitor hint: 4
+#Progress monitor hint: 6
 first : all
 -include ../makefile.init
 
@@ -91,14 +91,14 @@ endif
 # Tool invocations
 Controladordevelocidad-JM60.abs: $(OBJS) $(USER_OBJS) ../Project_Settings/Linker_Files/Project.prm
 	@echo 'Building target: $@'
-	@echo 'Executing target #5 $@'
+	@echo 'Executing target #7 $@'
 	@echo 'Invoking: S08 Linker'
 	"$(HC08ToolsEnv)/linker" -ArgFile"Controladordevelocidad-JM60.args" -O"Controladordevelocidad-JM60.abs"
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 Controladordevelocidad-JM60.abs.s19: $(BBL_SRCS) $(EXECUTABLES)
-	@echo 'Executing target #6 $@'
+	@echo 'Executing target #8 $@'
 	@echo 'Invoking: S08 Burner'
 	"$(HC08ToolsEnv)/burner" -ArgFile"Controladordevelocidad-JM60.abs.args" -f="$<" -env"ABS_FILE=$(strip $(EXECUTABLES_OS_FORMAT))"
 	@echo 'Finished building: $@'
@@ -106,7 +106,7 @@ Controladordevelocidad-JM60.abs.s19: $(BBL_SRCS) $(EXECUTABLES)
 
 # Other Targets
 clean:
-	-$(RM) $(S_DEPS_QUOTED) "./*/*.obj" "./*/*/*.obj"  $(CPP_DEPS_QUOTED) $(CC_DEPS_QUOTED) $(S_UPPER_DEPS_QUOTED) $(CXX_DEPS_QUOTED) $(ASM_DEPS_QUOTED) $(BURNER_OUTPUT_OUTPUTS_QUOTED) $(ASM_UPPER_DEPS_QUOTED) $(C_UPPER_DEPS_QUOTED) $(C++_DEPS_QUOTED) $(EXECUTABLES_QUOTED) "./*/*.d" "./*/*/*.d"  $(ProjDirPath)/FLASH/Controladordevelocidad-JM60.abs $(ProjDirPath)/FLASH/Controladordevelocidad-JM60.abs.args $(ProjDirPath)/FLASH/Controladordevelocidad-JM60.args
+	-$(RM) $(S_DEPS_QUOTED) "./*/*.obj" "./*/*/*.obj"  $(CPP_DEPS_QUOTED) $(CC_DEPS_QUOTED) $(S_UPPER_DEPS_QUOTED) $(CXX_DEPS_QUOTED) $(ASM_DEPS_QUOTED) $(BURNER_OUTPUT_OUTPUTS_QUOTED) $(ASM_UPPER_DEPS_QUOTED) $(C_UPPER_DEPS_QUOTED) $(C++_DEPS_QUOTED) $(EXECUTABLES_QUOTED) "./*/*.d" "./*/*/*.d"  $(ProjDirPath)/FLASH/Controladordevelocidad-JM60.abs $(ProjDirPath)/FLASH/Controladordevelocidad-JM60.abs.args $(ProjDirPath)/FLASH/Controladordevelocidad-JM60.abs.s19 $(ProjDirPath)/FLASH/Controladordevelocidad-JM60.args $(ProjDirPath)/FLASH/Controladordevelocidad-JM60.map
 	-@echo ' '
 
 .PHONY: all clean dependents explicit-dependencies warning-messages

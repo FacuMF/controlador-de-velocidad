@@ -12,8 +12,10 @@ Linker      : SmartLinker V-5.0.53 Build 17146, May 27 2017
 *********************************************************************************************
 FILE SECTION
 ---------------------------------------------------------------------------------------------
+decodificacion_c.obj                    Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC08 V-5.0.46 Build 17146, May 27 2017
 i2c_c.obj                               Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC08 V-5.0.46 Build 17146, May 27 2017
 main_c.obj                              Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC08 V-5.0.46 Build 17146, May 27 2017
+utils_c.obj                             Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC08 V-5.0.46 Build 17146, May 27 2017
 start08_c.obj                           Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC08 V-5.0.46 Build 17146, May 27 2017
 mc9s08jm60_c.obj                        Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC08 V-5.0.46 Build 17146, May 27 2017
 ctype.o (ansiis.lib)                    Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC08 V-5.0.46 Build 17146, May 27 2017
@@ -29,21 +31,21 @@ Entry point: 0x19DB (_Startup)
 _startupData is allocated at 0x19E4 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x100     283
-  _Copy    *toCopyDownBeg 0x2F28
+  _Range   pZeroOut       0x100     284
+  _Copy    *toCopyDownBeg 0x2F1E
 } _startupData;
 
 *********************************************************************************************
 SECTION-ALLOCATION SECTION
 Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
-.data                            214   R/W      0x100      0x1D5   RAM
+.data                            215   R/W      0x100      0x1D6   RAM
 .init                            132     R     0x1960     0x19E3   ROM
 .startData                        18     R     0x19E4     0x19F5   ROM
 .rodata                          116     R     0x19F6     0x1A69   ROM
 .rodata1                           3     R     0x1A6A     0x1A6C   ROM
-.text                           5307     R     0x1A6D     0x2F27   ROM
-.copy                            220     R     0x2F28     0x3003   ROM
+.text                           5297     R     0x1A6D     0x2F1D   ROM
+.copy                            221     R     0x2F1E     0x2FFA   ROM
 .abs_section_ffe8                  2     R     0xFFE8     0xFFE9   .absSeg0
 .abs_section_ffcc                  2     R     0xFFCC     0xFFCD   .absSeg1
 .abs_section_ffe0                  2     R     0xFFE0     0xFFE1   .absSeg2
@@ -195,14 +197,14 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_1810                  2   N/I     0x1810     0x1811   .absSeg148
 .abs_section_1812                  2   N/I     0x1812     0x1813   .absSeg149
 .abs_section_1814                  2   N/I     0x1814     0x1815   .absSeg150
-.bss                              64   R/W      0x1D6      0x215   RAM
-.common                            5   R/W      0x216      0x21A   RAM
-.stack                           128   R/W      0x21B      0x29A   RAM
+.bss                              64   R/W      0x1D7      0x216   RAM
+.common                            5   R/W      0x217      0x21B   RAM
+.stack                           128   R/W      0x21C      0x29B   RAM
 .vectSeg151_vect                   2     R     0xFFFE     0xFFFF   .vectSeg151
 
 Summary of section sizes per section type:
-READ_ONLY (R):        16AC (dec:     5804)
-READ_WRITE (R/W):      19B (dec:      411)
+READ_ONLY (R):        16A3 (dec:     5795)
+READ_WRITE (R/W):      19C (dec:      412)
 NO_INIT (N/I):          AC (dec:      172)
 
 *********************************************************************************************
@@ -215,73 +217,81 @@ VECTOR-ALLOCATION SECTION
 OBJECT-ALLOCATION SECTION
      Name               Module                 Addr   hSize   dSize     Ref    Section   RLIB
 ---------------------------------------------------------------------------------------------
+MODULE:                 -- decodificacion_c.obj --
+- PROCEDURES:
+     leerEstado                                1A6D      2C      44       1   .text       
+     leerVelocidad                             1A99      31      49       1   .text       
+- VARIABLES:
 MODULE:                 -- i2c_c.obj --
 - PROCEDURES:
-     escribir_memo                             1A6D      47      71       1   .text       
-     leer_memo                                 1AB4      4B      75       1   .text       
-     I2Cdelay                                  1AFF       7       7      17   .text       
-     i2c_tx                                    1B06      37      55       8   .text       
-     i2c_start                                 1B3D      10      16       3   .text       
-     i2c_rx                                    1B4D      45      69       1   .text       
-     i2c_stop                                  1B92      11      17       2   .text       
+     escribir_memo                             1ACA      47      71       1   .text       
+     leer_memo                                 1B11      4B      75       1   .text       
+     I2Cdelay                                  1B5C       7       7      17   .text       
+     i2c_tx                                    1B63      37      55       8   .text       
+     i2c_start                                 1B9A      10      16       3   .text       
+     i2c_rx                                    1BAA      45      69       1   .text       
+     i2c_stop                                  1BEF      11      17       2   .text       
 - VARIABLES:
-     i2c_error                                  216       1       1       2   .common     
+     i2c_error                                  217       1       1       2   .common     
 MODULE:                 -- main_c.obj --
 - PROCEDURES:
-     main                                      1BA3      83     131       1   .text       
-     initDeteccionFlancos                      1C26       8       8       1   .text       
-     tovf                                      1C2E      15      21       1   .text       
-     tiempoDeMedicion                          1C43      6C     108       1   .text       
-     decodificado                              1CAF      67     103       1   .text       
-     leerCodigo                                1D16       E      14       1   .text       
-     leerEstado                                1D24      32      50       1   .text       
-     leerVelocidad                             1D56      34      52       1   .text       
-     reiniciar                                 1D8A      45      69       1   .text       
-     indicarReinicio                           1DCF      3E      62       1   .text       
-     reiniciarHoras                            1E0D       5       5       1   .text       
-     cambiarVelocidad                          1E12      10      16       1   .text       
-     inicializacionPuertos                     1E22      21      33       1   .text       
-     mostrarUso                                1E43      27      39       2   .text       
-     estadoPOnOff                              1E6A      4A      74       1   .text       
-     estadoPCV                                 1EB4      4A      74       1   .text       
-     indicarVelocidadElegida                   1EFE      30      48       1   .text       
-     apagar                                    1F2E       C      12       2   .text       
-     apagarTimer                               1F3A       3       3       1   .text       
-     encender                                  1F3D       F      15       2   .text       
-     determinarUso                             1F4C      34      52       1   .text       
-     leerHorasDeMemoria                        1F80      28      40       1   .text       
-     inicializacionTimer                       1FA8       9       9       1   .text       
-     pinInterrupt                              1FB1       B      11       1   .text       
-     tm1Interrupt                              1FBC      36      54       1   .text       
-     escribirHorasEnMemoria                    1FF2      67     103       2   .text       
-     manejarDC0                                2059      33      51       1   .text       
-     cicloCompleto                             208C      22      34       1   .text       
-     my_itoa                                   20AE      18      24       1   .text       
+     main                                      1C00      86     134       1   .text       
+     initDeteccionFlancos                      1C86       8       8       1   .text       
+     tovf                                      1C8E      15      21       1   .text       
+     tiempoDeMedicion                          1CA3      6C     108       1   .text       
+     decodificado                              1D0F      7D     125       1   .text       
+     estadoControl                             1D8C       F      15       1   .text       
+     iniciarCambioDeModo                       1D9B      42      66       1   .text       
+     indicarCambioDeModo                       1DDD      2F      47       1   .text       
+     cambiarVelocidad                          1E0C      10      16       1   .text       
+     setVelocidad                              1E1C       5       5       1   .text       
+     inicializacionPuertos                     1E21      19      25       1   .text       
+     mostrarUso                                1E3A      27      39       2   .text       
+     estadoPOnOff                              1E61      4A      74       1   .text       
+     estadoPCV                                 1EAB      4A      74       1   .text       
+     indicarVelocidadElegida                   1EF5       8       8       1   .text       
+     apagar                                    1EFD       C      12       2   .text       
+     apagarTimer                               1F09       3       3       1   .text       
+     encender                                  1F0C       F      15       2   .text       
+     leerHorasDeMemoria                        1F1B      28      40       1   .text       
+     inicializacionTimer                       1F43       9       9       1   .text       
+     pinInterrupt                              1F4C       8       8       1   .text       
+     tm1Interrupt                              1F54      36      54       1   .text       
+     escribirHorasEnMemoria                    1F8A      67     103       1   .text       
+     manejarDC0                                1FF1      36      54       1   .text       
 - VARIABLES:
-     STRING..d.2                               1A6A       3       3       1   .rodata1    
-     estadoActual                               100       1       1       4   .data       
+     estadoActual                               100       1       1       1   .data       
      secuencia                                  101      C8     200       1   .data       
-     usoActual                                  1C9       1       1       4   .data       
+     usoActual                                  1C9       1       1       1   .data       
      cantidadHoras                              1CA       2       2       4   .data       
      digito                                     1CC       A      10       1   .data       
-     t                                          1D6       2       2       7   .bss        
-     u                                          1D8       2       2       7   .bss        
-     w                                          1DA       2       2       3   .bss        
-     contadorPulsos                             1DC       2       2       6   .bss        
-     decodificacion                             1DE       2       2       3   .bss        
-     v                                          1E0      28      40       3   .bss        
-     esperoSigInstruccion                       208       1       1       3   .bss        
-     terminoStart                               209       1       1       1   .bss        
-     velElegida                                 20A       1       1       6   .bss        
-     controlEncendido                           20B       1       1       5   .bss        
-     contadorCiclos                             20C       1       1       4   .bss        
-     contadorSegundos                           20D       1       1       3   .bss        
-     contadorMinutos                            20E       1       1       3   .bss        
-     pulsos                                     20F       1       1       4   .bss        
+     estado                                     1D6       1       1       2   .data       
+     t                                          1D7       2       2       7   .bss        
+     u                                          1D9       2       2       7   .bss        
+     w                                          1DB       2       2       3   .bss        
+     contadorPulsos                             1DD       2       2       6   .bss        
+     decodificacion                             1DF       2       2       3   .bss        
+     v                                          1E1      28      40       4   .bss        
+     esperoSigInstruccion                       209       1       1       3   .bss        
+     terminoStart                               20A       1       1       1   .bss        
+     velElegida                                 20B       1       1       6   .bss        
+     controlEncendido                           20C       1       1       5   .bss        
+     contadorCiclos                             20D       1       1       4   .bss        
+     contadorSegundos                           20E       1       1       3   .bss        
+     contadorMinutos                            20F       1       1       3   .bss        
+     pulsos                                     210       1       1       1   .bss        
      _Vector_11                                FFE8       2       2       0   .abs_section_ffe8
      _Vector_25                                FFCC       2       2       0   .abs_section_ffcc
      _Vector_15                                FFE0       2       2       0   .abs_section_ffe0
-     resultado                                  217       2       2       1   .common     
+     resultado                                  218       2       2       1   .common     
+MODULE:                 -- utils_c.obj --
+- PROCEDURES:
+     cicloCompleto                             2027      17      23       1   .text       
+     my_itoa                                   203E      18      24       1   .text       
+     mostrarNumero                             2056      31      49       3   .text       
+     determinarUso                             2087      35      53       1   .text       
+- VARIABLES:
+     STRING..d.1                               1A6A       3       3       1   .rodata1    
 MODULE:                 -- start08_c.obj --
 - PROCEDURES:
      loadByte                                  1960       E      14       5   .init       
@@ -290,13 +300,13 @@ MODULE:                 -- start08_c.obj --
 - VARIABLES:
      _startupData                              19E4       6       6       4   .startData  
 - LABELS:
-     __SEG_END_SSTACK                           29B       0       0       1               
+     __SEG_END_SSTACK                           29C       0       0       1               
 MODULE:                 -- mc9s08jm60_c.obj --
 - PROCEDURES:
 - VARIABLES:
-     _PTAD                                        0       1       1       1   .abs_section_0
+     _PTAD                                        0       1       1       0   .abs_section_0
      _PTADD                                       1       1       1       2   .abs_section_1
-     _PTBD                                        2       1       1      46   .abs_section_2
+     _PTBD                                        2       1       1      37   .abs_section_2
      _PTBDD                                       3       1       1      13   .abs_section_3
      _PTCD                                        4       1       1      13   .abs_section_4
      _PTCDD                                       5       1       1       3   .abs_section_5
@@ -444,71 +454,73 @@ MODULE:                 -- mc9s08jm60_c.obj --
      _DBGF                                     1814       2       2       0   .abs_section_1814
 MODULE:                 -- ctype.o (ansiis.lib) --
 - PROCEDURES:
-     isdigit                                   20C6       E      14       1   .text       
-     isspace                                   20D4      1E      30       2   .text       
-     toupper                                   20F2      1C      28       3   .text       
+     isdigit                                   20BC       E      14       1   .text       
+     isspace                                   20CA      1E      30       2   .text       
+     toupper                                   20E8      1C      28       3   .text       
 - VARIABLES:
 MODULE:                 -- printf.o (ansiis.lib) --
 - PROCEDURES:
-     vprintf                                   210E     60B    1547      39   .text       
-     _out                                      2719       D      13       9   .text       
-     deposit_char                              2726      15      21       1   .text       
-     sprintf                                   273B      3B      59       1   .text       
+     vprintf                                   2104     60B    1547      39   .text       
+     _out                                      270F       D      13       9   .text       
+     deposit_char                              271C      15      21       1   .text       
+     sprintf                                   2731      3B      59       1   .text       
 - VARIABLES:
      pow10                                     19F6      28      40       4   .rodata     
      pow16                                     1A1E      20      32       4   .rodata     
      pow8                                      1A3E      2C      44       4   .rodata     
-     pbuf                                       210       6       6      14   .bss        
+     pbuf                                       211       6       6      14   .bss        
 MODULE:                 -- rtshc08.o (ansiis.lib) --
 - PROCEDURES:
-     _PUSH_ARGS_L                              2776      20      32       2   .text       
-     _ENTER_UNARY_L                            2796      29      41       1   .text       
-     _ENTER_BINARY_L                           27BF      16      22       5   .text       
-     _ENTER_BINARY_L_LC                        27D5      1A      26       1   .text       
-     _LADD_k_is_k_plus_j                       27EF      1F      31       1   .text       
-     _k_is_k_plus_j_l                          280E      1E      30       2   .text       
-     _k_is_k_plus_j_i                          282C      12      18       3   .text       
-     _LSUB_k_is_k_minus_j                      283E      1F      31       2   .text       
-     _LMUL_k_is_k_mul_j                        285D      81     129       1   .text       
-     _LDIVMOD                                  28DE      A4     164       1   .text       
-     _LDIVU_k_is_k_div_j                       2982      17      23       1   .text       
-     _LCMP_k_rel_j                             2999      1F      31       1   .text       
-     _IMUL_STAR08                              29B8      27      39       2   .text       
-     _LNEG                                     29DF      1C      28       2   .text       
-     _LADD                                     29FB       6       6       1   .text       
-     _LSUB                                     2A01       6       6       1   .text       
-     _LSUB_LC                                  2A07       6       6       1   .text       
-     _LMUL                                     2A0D       6       6       1   .text       
-     _LDIVU                                    2A13       6       6       1   .text       
-     _LCMP                                     2A19       6       6       5   .text       
-     _COPY                                     2A1F      30      48       5   .text       
-     _POP32                                    2A4F      1A      26       6   .text       
-     _SEXT16_32                                2A69       D      13       5   .text       
-     _Jump_Table_Addr                          2A76      16      22       1   .text       
-     _Jump_Table_Header_Offset                 2A8C      24      36       3   .text       
-     _Search_Table_8_Addr                      2AB0      21      33       1   .text       
-     _Search_Table_8_Offset                    2AD1      25      37       1   .text       
+     _PUSH_ARGS_L                              276C      20      32       2   .text       
+     _ENTER_UNARY_L                            278C      29      41       1   .text       
+     _ENTER_BINARY_L                           27B5      16      22       5   .text       
+     _ENTER_BINARY_L_LC                        27CB      1A      26       1   .text       
+     _LADD_k_is_k_plus_j                       27E5      1F      31       1   .text       
+     _k_is_k_plus_j_l                          2804      1E      30       2   .text       
+     _k_is_k_plus_j_i                          2822      12      18       3   .text       
+     _LSUB_k_is_k_minus_j                      2834      1F      31       2   .text       
+     _LMUL_k_is_k_mul_j                        2853      81     129       1   .text       
+     _LDIVMOD                                  28D4      A4     164       1   .text       
+     _LDIVU_k_is_k_div_j                       2978      17      23       1   .text       
+     _LCMP_k_rel_j                             298F      1F      31       1   .text       
+     _IMUL_STAR08                              29AE      27      39       2   .text       
+     _LNEG                                     29D5      1C      28       2   .text       
+     _LADD                                     29F1       6       6       1   .text       
+     _LSUB                                     29F7       6       6       1   .text       
+     _LSUB_LC                                  29FD       6       6       1   .text       
+     _LMUL                                     2A03       6       6       1   .text       
+     _LDIVU                                    2A09       6       6       1   .text       
+     _LCMP                                     2A0F       6       6       5   .text       
+     _COPY                                     2A15      30      48       5   .text       
+     _POP32                                    2A45      1A      26       6   .text       
+     _SEXT16_32                                2A5F       D      13       5   .text       
+     _Jump_Table_Addr                          2A6C      16      22       1   .text       
+     _Jump_Table_Header_Offset                 2A82      24      36       3   .text       
+     _Search_Table_8_Addr                      2AA6      21      33       1   .text       
+     _Search_Table_8_Offset                    2AC7      25      37       1   .text       
 - VARIABLES:
-     errno                                      219       2       2       2   .common     
+     errno                                      21A       2       2       2   .common     
 MODULE:                 -- stdlib.o (ansiis.lib) --
 - PROCEDURES:
-     CheckCharWithBase                         2AF6      50      80       2   .text       
-     _strtoul                                  2B46     1FF     511       9   .text       
-     _strtol                                   2D45     152     338       2   .text       
-     strtol                                    2E97      2D      45       2   .text       
+     CheckCharWithBase                         2AEC      50      80       2   .text       
+     _strtoul                                  2B3C     1FF     511       9   .text       
+     _strtol                                   2D3B     152     338       2   .text       
+     strtol                                    2E8D      2D      45       2   .text       
 - VARIABLES:
 MODULE:                 -- string.o (ansiis.lib) --
 - PROCEDURES:
-     memcpy                                    2EC4      3D      61       1   .text       
-     strlen                                    2F01      27      39       2   .text       
+     memcpy                                    2EBA      3D      61       1   .text       
+     strlen                                    2EF7      27      39       2   .text       
 - VARIABLES:
 
 *********************************************************************************************
 MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
+  decodificacion_c.obj                         0     93      0
   i2c_c.obj                                    1    310      0
-  main_c.obj                                 274   1315      9
+  main_c.obj                                 275   1063      6
+  utils_c.obj                                  0    149      3
   start08_c.obj                                0    132      0
   mc9s08jm60_c.obj                           172      0      0
   ctype.o (ansiis.lib)                         0     72      0
@@ -516,19 +528,19 @@ MODULE STATISTIC
   rtshc08.o (ansiis.lib)                       2    896      0
   stdlib.o (ansiis.lib)                        0    974      0
   string.o (ansiis.lib)                        0    100      0
-  other                                      128     20    220
+  other                                      128     20    221
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  escribir_memo leer_memo I2Cdelay i2c_tx i2c_start i2c_rx i2c_stop main 
-  initDeteccionFlancos tovf tiempoDeMedicion decodificado leerCodigo leerEstado 
-  leerVelocidad reiniciar indicarReinicio reiniciarHoras cambiarVelocidad 
-  inicializacionPuertos mostrarUso estadoPOnOff estadoPCV 
-  indicarVelocidadElegida apagar apagarTimer encender determinarUso 
-  leerHorasDeMemoria inicializacionTimer pinInterrupt tm1Interrupt 
-  escribirHorasEnMemoria manejarDC0 cicloCompleto my_itoa isdigit isspace 
+  leerEstado leerVelocidad escribir_memo leer_memo I2Cdelay i2c_tx i2c_start 
+  i2c_rx i2c_stop main initDeteccionFlancos tovf tiempoDeMedicion decodificado 
+  estadoControl iniciarCambioDeModo indicarCambioDeModo cambiarVelocidad 
+  setVelocidad inicializacionPuertos mostrarUso estadoPOnOff estadoPCV 
+  indicarVelocidadElegida apagar apagarTimer encender leerHorasDeMemoria 
+  inicializacionTimer pinInterrupt tm1Interrupt escribirHorasEnMemoria 
+  manejarDC0 cicloCompleto my_itoa mostrarNumero determinarUso isdigit isspace 
   toupper vprintf _out deposit_char sprintf _PUSH_ARGS_L _ENTER_UNARY_L 
   _ENTER_BINARY_L _ENTER_BINARY_L_LC _LADD_k_is_k_plus_j _k_is_k_plus_j_l 
   _k_is_k_plus_j_i _LSUB_k_is_k_minus_j _LMUL_k_is_k_mul_j _LDIVMOD 
@@ -537,7 +549,7 @@ SECTION: ".text"
   _Jump_Table_Header_Offset _Search_Table_8_Addr _Search_Table_8_Offset 
   CheckCharWithBase _strtoul _strtol strtol memcpy strlen 
 SECTION: ".data"
-  estadoActual secuencia usoActual cantidadHoras digito 
+  estadoActual secuencia usoActual cantidadHoras digito estado 
 SECTION: ".bss"
   t u w contadorPulsos decodificacion v esperoSigInstruccion terminoStart 
   velElegida controlEncendido contadorCiclos contadorSegundos contadorMinutos 
@@ -547,7 +559,7 @@ SECTION: ".init"
 SECTION: ".rodata"
   pow10 pow16 pow8 
 SECTION: ".rodata1"
-  STRING..d.2 
+  STRING..d.1 
 SECTION: ".common"
   i2c_error resultado errno 
 SECTION: ".abs_section_ffe8"
@@ -857,9 +869,9 @@ SECTION: ".abs_section_1814"
 OBJECT LIST SORTED BY ADDRESS
      Name                                      Addr   hSize   dSize     Ref    Section   RLIB
 ---------------------------------------------------------------------------------------------
-     _PTAD                                        0       1       1       1   .abs_section_0
+     _PTAD                                        0       1       1       0   .abs_section_0
      _PTADD                                       1       1       1       2   .abs_section_1
-     _PTBD                                        2       1       1      46   .abs_section_2
+     _PTBD                                        2       1       1      37   .abs_section_2
      _PTBDD                                       3       1       1      13   .abs_section_3
      _PTCD                                        4       1       1      13   .abs_section_4
      _PTCDD                                       5       1       1       3   .abs_section_5
@@ -965,29 +977,30 @@ OBJECT LIST SORTED BY ADDRESS
      _EPCTL4                                     A1       1       1       0   .abs_section_a1
      _EPCTL5                                     A2       1       1       0   .abs_section_a2
      _EPCTL6                                     A3       1       1       0   .abs_section_a3
-     estadoActual                               100       1       1       4   .data       
+     estadoActual                               100       1       1       1   .data       
      secuencia                                  101      C8     200       1   .data       
-     usoActual                                  1C9       1       1       4   .data       
+     usoActual                                  1C9       1       1       1   .data       
      cantidadHoras                              1CA       2       2       4   .data       
      digito                                     1CC       A      10       1   .data       
-     t                                          1D6       2       2       7   .bss        
-     u                                          1D8       2       2       7   .bss        
-     w                                          1DA       2       2       3   .bss        
-     contadorPulsos                             1DC       2       2       6   .bss        
-     decodificacion                             1DE       2       2       3   .bss        
-     v                                          1E0      28      40       3   .bss        
-     esperoSigInstruccion                       208       1       1       3   .bss        
-     terminoStart                               209       1       1       1   .bss        
-     velElegida                                 20A       1       1       6   .bss        
-     controlEncendido                           20B       1       1       5   .bss        
-     contadorCiclos                             20C       1       1       4   .bss        
-     contadorSegundos                           20D       1       1       3   .bss        
-     contadorMinutos                            20E       1       1       3   .bss        
-     pulsos                                     20F       1       1       4   .bss        
-     pbuf                                       210       6       6      14   .bss        
-     i2c_error                                  216       1       1       2   .common     
-     resultado                                  217       2       2       1   .common     
-     errno                                      219       2       2       2   .common     
+     estado                                     1D6       1       1       2   .data       
+     t                                          1D7       2       2       7   .bss        
+     u                                          1D9       2       2       7   .bss        
+     w                                          1DB       2       2       3   .bss        
+     contadorPulsos                             1DD       2       2       6   .bss        
+     decodificacion                             1DF       2       2       3   .bss        
+     v                                          1E1      28      40       4   .bss        
+     esperoSigInstruccion                       209       1       1       3   .bss        
+     terminoStart                               20A       1       1       1   .bss        
+     velElegida                                 20B       1       1       6   .bss        
+     controlEncendido                           20C       1       1       5   .bss        
+     contadorCiclos                             20D       1       1       4   .bss        
+     contadorSegundos                           20E       1       1       3   .bss        
+     contadorMinutos                            20F       1       1       3   .bss        
+     pulsos                                     210       1       1       1   .bss        
+     pbuf                                       211       6       6      14   .bss        
+     i2c_error                                  217       1       1       2   .common     
+     resultado                                  218       2       2       1   .common     
+     errno                                      21A       2       2       2   .common     
      _SRS                                      1800       1       1       0   .abs_section_1800
      _SBDFR                                    1801       1       1       0   .abs_section_1801
      _SOPT1                                    1802       1       1       1   .abs_section_1802
@@ -1034,83 +1047,84 @@ OBJECT LIST SORTED BY ADDRESS
      pow10                                     19F6      28      40       4   .rodata     
      pow16                                     1A1E      20      32       4   .rodata     
      pow8                                      1A3E      2C      44       4   .rodata     
-     STRING..d.2                               1A6A       3       3       1   .rodata1    
-     escribir_memo                             1A6D      47      71       1   .text       
-     leer_memo                                 1AB4      4B      75       1   .text       
-     I2Cdelay                                  1AFF       7       7      17   .text       
-     i2c_tx                                    1B06      37      55       8   .text       
-     i2c_start                                 1B3D      10      16       3   .text       
-     i2c_rx                                    1B4D      45      69       1   .text       
-     i2c_stop                                  1B92      11      17       2   .text       
-     main                                      1BA3      83     131       1   .text       
-     initDeteccionFlancos                      1C26       8       8       1   .text       
-     tovf                                      1C2E      15      21       1   .text       
-     tiempoDeMedicion                          1C43      6C     108       1   .text       
-     decodificado                              1CAF      67     103       1   .text       
-     leerCodigo                                1D16       E      14       1   .text       
-     leerEstado                                1D24      32      50       1   .text       
-     leerVelocidad                             1D56      34      52       1   .text       
-     reiniciar                                 1D8A      45      69       1   .text       
-     indicarReinicio                           1DCF      3E      62       1   .text       
-     reiniciarHoras                            1E0D       5       5       1   .text       
-     cambiarVelocidad                          1E12      10      16       1   .text       
-     inicializacionPuertos                     1E22      21      33       1   .text       
-     mostrarUso                                1E43      27      39       2   .text       
-     estadoPOnOff                              1E6A      4A      74       1   .text       
-     estadoPCV                                 1EB4      4A      74       1   .text       
-     indicarVelocidadElegida                   1EFE      30      48       1   .text       
-     apagar                                    1F2E       C      12       2   .text       
-     apagarTimer                               1F3A       3       3       1   .text       
-     encender                                  1F3D       F      15       2   .text       
-     determinarUso                             1F4C      34      52       1   .text       
-     leerHorasDeMemoria                        1F80      28      40       1   .text       
-     inicializacionTimer                       1FA8       9       9       1   .text       
-     pinInterrupt                              1FB1       B      11       1   .text       
-     tm1Interrupt                              1FBC      36      54       1   .text       
-     escribirHorasEnMemoria                    1FF2      67     103       2   .text       
-     manejarDC0                                2059      33      51       1   .text       
-     cicloCompleto                             208C      22      34       1   .text       
-     my_itoa                                   20AE      18      24       1   .text       
-     isdigit                                   20C6       E      14       1   .text       
-     isspace                                   20D4      1E      30       2   .text       
-     toupper                                   20F2      1C      28       3   .text       
-     vprintf                                   210E     60B    1547      39   .text       
-     _out                                      2719       D      13       9   .text       
-     deposit_char                              2726      15      21       1   .text       
-     sprintf                                   273B      3B      59       1   .text       
-     _PUSH_ARGS_L                              2776      20      32       2   .text       
-     _ENTER_UNARY_L                            2796      29      41       1   .text       
-     _ENTER_BINARY_L                           27BF      16      22       5   .text       
-     _ENTER_BINARY_L_LC                        27D5      1A      26       1   .text       
-     _LADD_k_is_k_plus_j                       27EF      1F      31       1   .text       
-     _k_is_k_plus_j_l                          280E      1E      30       2   .text       
-     _k_is_k_plus_j_i                          282C      12      18       3   .text       
-     _LSUB_k_is_k_minus_j                      283E      1F      31       2   .text       
-     _LMUL_k_is_k_mul_j                        285D      81     129       1   .text       
-     _LDIVMOD                                  28DE      A4     164       1   .text       
-     _LDIVU_k_is_k_div_j                       2982      17      23       1   .text       
-     _LCMP_k_rel_j                             2999      1F      31       1   .text       
-     _IMUL_STAR08                              29B8      27      39       2   .text       
-     _LNEG                                     29DF      1C      28       2   .text       
-     _LADD                                     29FB       6       6       1   .text       
-     _LSUB                                     2A01       6       6       1   .text       
-     _LSUB_LC                                  2A07       6       6       1   .text       
-     _LMUL                                     2A0D       6       6       1   .text       
-     _LDIVU                                    2A13       6       6       1   .text       
-     _LCMP                                     2A19       6       6       5   .text       
-     _COPY                                     2A1F      30      48       5   .text       
-     _POP32                                    2A4F      1A      26       6   .text       
-     _SEXT16_32                                2A69       D      13       5   .text       
-     _Jump_Table_Addr                          2A76      16      22       1   .text       
-     _Jump_Table_Header_Offset                 2A8C      24      36       3   .text       
-     _Search_Table_8_Addr                      2AB0      21      33       1   .text       
-     _Search_Table_8_Offset                    2AD1      25      37       1   .text       
-     CheckCharWithBase                         2AF6      50      80       2   .text       
-     _strtoul                                  2B46     1FF     511       9   .text       
-     _strtol                                   2D45     152     338       2   .text       
-     strtol                                    2E97      2D      45       2   .text       
-     memcpy                                    2EC4      3D      61       1   .text       
-     strlen                                    2F01      27      39       2   .text       
+     STRING..d.1                               1A6A       3       3       1   .rodata1    
+     leerEstado                                1A6D      2C      44       1   .text       
+     leerVelocidad                             1A99      31      49       1   .text       
+     escribir_memo                             1ACA      47      71       1   .text       
+     leer_memo                                 1B11      4B      75       1   .text       
+     I2Cdelay                                  1B5C       7       7      17   .text       
+     i2c_tx                                    1B63      37      55       8   .text       
+     i2c_start                                 1B9A      10      16       3   .text       
+     i2c_rx                                    1BAA      45      69       1   .text       
+     i2c_stop                                  1BEF      11      17       2   .text       
+     main                                      1C00      86     134       1   .text       
+     initDeteccionFlancos                      1C86       8       8       1   .text       
+     tovf                                      1C8E      15      21       1   .text       
+     tiempoDeMedicion                          1CA3      6C     108       1   .text       
+     decodificado                              1D0F      7D     125       1   .text       
+     estadoControl                             1D8C       F      15       1   .text       
+     iniciarCambioDeModo                       1D9B      42      66       1   .text       
+     indicarCambioDeModo                       1DDD      2F      47       1   .text       
+     cambiarVelocidad                          1E0C      10      16       1   .text       
+     setVelocidad                              1E1C       5       5       1   .text       
+     inicializacionPuertos                     1E21      19      25       1   .text       
+     mostrarUso                                1E3A      27      39       2   .text       
+     estadoPOnOff                              1E61      4A      74       1   .text       
+     estadoPCV                                 1EAB      4A      74       1   .text       
+     indicarVelocidadElegida                   1EF5       8       8       1   .text       
+     apagar                                    1EFD       C      12       2   .text       
+     apagarTimer                               1F09       3       3       1   .text       
+     encender                                  1F0C       F      15       2   .text       
+     leerHorasDeMemoria                        1F1B      28      40       1   .text       
+     inicializacionTimer                       1F43       9       9       1   .text       
+     pinInterrupt                              1F4C       8       8       1   .text       
+     tm1Interrupt                              1F54      36      54       1   .text       
+     escribirHorasEnMemoria                    1F8A      67     103       1   .text       
+     manejarDC0                                1FF1      36      54       1   .text       
+     cicloCompleto                             2027      17      23       1   .text       
+     my_itoa                                   203E      18      24       1   .text       
+     mostrarNumero                             2056      31      49       3   .text       
+     determinarUso                             2087      35      53       1   .text       
+     isdigit                                   20BC       E      14       1   .text       
+     isspace                                   20CA      1E      30       2   .text       
+     toupper                                   20E8      1C      28       3   .text       
+     vprintf                                   2104     60B    1547      39   .text       
+     _out                                      270F       D      13       9   .text       
+     deposit_char                              271C      15      21       1   .text       
+     sprintf                                   2731      3B      59       1   .text       
+     _PUSH_ARGS_L                              276C      20      32       2   .text       
+     _ENTER_UNARY_L                            278C      29      41       1   .text       
+     _ENTER_BINARY_L                           27B5      16      22       5   .text       
+     _ENTER_BINARY_L_LC                        27CB      1A      26       1   .text       
+     _LADD_k_is_k_plus_j                       27E5      1F      31       1   .text       
+     _k_is_k_plus_j_l                          2804      1E      30       2   .text       
+     _k_is_k_plus_j_i                          2822      12      18       3   .text       
+     _LSUB_k_is_k_minus_j                      2834      1F      31       2   .text       
+     _LMUL_k_is_k_mul_j                        2853      81     129       1   .text       
+     _LDIVMOD                                  28D4      A4     164       1   .text       
+     _LDIVU_k_is_k_div_j                       2978      17      23       1   .text       
+     _LCMP_k_rel_j                             298F      1F      31       1   .text       
+     _IMUL_STAR08                              29AE      27      39       2   .text       
+     _LNEG                                     29D5      1C      28       2   .text       
+     _LADD                                     29F1       6       6       1   .text       
+     _LSUB                                     29F7       6       6       1   .text       
+     _LSUB_LC                                  29FD       6       6       1   .text       
+     _LMUL                                     2A03       6       6       1   .text       
+     _LDIVU                                    2A09       6       6       1   .text       
+     _LCMP                                     2A0F       6       6       5   .text       
+     _COPY                                     2A15      30      48       5   .text       
+     _POP32                                    2A45      1A      26       6   .text       
+     _SEXT16_32                                2A5F       D      13       5   .text       
+     _Jump_Table_Addr                          2A6C      16      22       1   .text       
+     _Jump_Table_Header_Offset                 2A82      24      36       3   .text       
+     _Search_Table_8_Addr                      2AA6      21      33       1   .text       
+     _Search_Table_8_Offset                    2AC7      25      37       1   .text       
+     CheckCharWithBase                         2AEC      50      80       2   .text       
+     _strtoul                                  2B3C     1FF     511       9   .text       
+     _strtol                                   2D3B     152     338       2   .text       
+     strtol                                    2E8D      2D      45       2   .text       
+     memcpy                                    2EBA      3D      61       1   .text       
+     strlen                                    2EF7      27      39       2   .text       
      _Vector_25                                FFCC       2       2       0   .abs_section_ffcc
      _Vector_15                                FFE0       2       2       0   .abs_section_ffe0
      _Vector_11                                FFE8       2       2       0   .abs_section_ffe8
@@ -1122,7 +1136,7 @@ NOT USED PROCEDURES
 i2c_c.obj:
   escribir_byte leer_byte i2c_addr 
 main_c.obj:
-  inicializacionPinInterrupts 
+  reiniciarHoras inicializacionPinInterrupts 
 ctype.o (ansiis.lib):
   isalnum isalpha iscntrl isgraph islower isprint ispunct isupper isxdigit 
   tolower 
@@ -1167,13 +1181,13 @@ string.o (ansiis.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0x2F28 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0x2F1E ---- SIZE       4 ---
 Filling bytes inserted
- 00D60100
-------- ROM-ADDRESS: 0x2F2C ---- RAM-ADDRESS: 0x100 ---- SIZE       1 ---
+ 00D70100
+------- ROM-ADDRESS: 0x2F22 ---- RAM-ADDRESS: 0x100 ---- SIZE       1 ---
 Name of initialized Object : estadoActual
  30
-------- ROM-ADDRESS: 0x2F2D ---- RAM-ADDRESS: 0x101 ---- SIZE     200 ---
+------- ROM-ADDRESS: 0x2F23 ---- RAM-ADDRESS: 0x101 ---- SIZE     200 ---
 Name of initialized Object : secuencia
  0100000100 0001000001 0000010000
  0100000101 0100000100 0001000001
@@ -1189,19 +1203,22 @@ Name of initialized Object : secuencia
  0101010101 0101010101 0101000101
  0101010101 0101010101 0101010101
  0101010101
-------- ROM-ADDRESS: 0x2FF5 ---- RAM-ADDRESS: 0x1C9 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0x2FEB ---- RAM-ADDRESS: 0x1C9 ---- SIZE       1 ---
 Name of initialized Object : usoActual
  01
-------- ROM-ADDRESS: 0x2FF6 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0x2FEC ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0x2FF7 ---- RAM-ADDRESS: 0x1CB ---- SIZE       1 ---
+------- ROM-ADDRESS: 0x2FED ---- RAM-ADDRESS: 0x1CB ---- SIZE       1 ---
 Name of initialized Object : cantidadHoras:1
  01
-------- ROM-ADDRESS: 0x2FF8 ---- RAM-ADDRESS: 0x1CC ---- SIZE      10 ---
+------- ROM-ADDRESS: 0x2FEE ---- RAM-ADDRESS: 0x1CC ---- SIZE      10 ---
 Name of initialized Object : digito
  FC60DAF266 B6BEE0FEF6
-------- ROM-ADDRESS: 0x3002 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0x2FF8 ---- RAM-ADDRESS: 0x1D6 ---- SIZE       1 ---
+Name of initialized Object : estado
+ 01
+------- ROM-ADDRESS: 0x2FF9 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1210,6 +1227,7 @@ OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 Init                      USES _startupData loadByte 
 _Startup                  USES __SEG_END_SSTACK Init main 
+leerVelocidad             USES strtol 
 escribir_memo             USES i2c_tx I2Cdelay i2c_stop i2c_error i2c_start 
 leer_memo                 USES i2c_start i2c_tx I2Cdelay i2c_rx i2c_stop 
 i2c_tx                    USES _PTBDD _PTBD I2Cdelay i2c_error 
@@ -1217,44 +1235,42 @@ i2c_start                 USES _PTBDD _PTBD I2Cdelay
 i2c_rx                    USES _PTBDD _PTBD I2Cdelay 
 i2c_stop                  USES _PTBDD _PTBD I2Cdelay 
 main                      USES _SOPT1 inicializacionPuertos 
-                                initDeteccionFlancos estadoPOnOff estadoPCV controlEncendido 
-                                encender apagar cantidadHoras determinarUso usoActual 
-                                mostrarUso cambiarVelocidad velElegida 
-                                indicarVelocidadElegida _PTGD _PTCD reiniciar 
+                                initDeteccionFlancos _PTGD _PTCD estado estadoPOnOff estadoPCV 
+                                controlEncendido encender apagar cantidadHoras determinarUso 
+                                usoActual mostrarUso cambiarVelocidad velElegida 
+                                indicarVelocidadElegida iniciarCambioDeModo 
 initDeteccionFlancos      USES _TPM1C1SC _TPM1SC 
 tovf                      USES esperoSigInstruccion _TPM1C2SC tiempoDeMedicion 
 tiempoDeMedicion          USES w decodificacion _TPM1C0V t u resultado 
                                 decodificado 
 decodificado              USES contadorPulsos v terminoStart 
-                                esperoSigInstruccion _TPM1C0SC leerCodigo 
-leerCodigo                USES leerEstado leerVelocidad 
-leerEstado                USES estadoActual apagar encender 
-leerVelocidad             USES strtol velElegida 
-reiniciar                 USES _TPM2SC _TPM2MOD _PTGD _PTCD indicarReinicio 
-                                reiniciarHoras 
-indicarReinicio           USES _TPM2SC _TPM2MOD _PTBD 
-reiniciarHoras            USES escribirHorasEnMemoria 
+                                esperoSigInstruccion _TPM1C0SC estadoActual leerEstado 
+                                leerVelocidad estadoControl setVelocidad 
+estadoControl             USES apagar encender 
+iniciarCambioDeModo       USES _TPM2SC _TPM2MOD _PTGD _PTCD 
+                                indicarCambioDeModo 
+indicarCambioDeModo       USES _TPM2SC _TPM2MOD mostrarNumero 
 cambiarVelocidad          USES velElegida 
-inicializacionPuertos     USES _PTBDD _PTCDD _PTBD _PTCD _PTGDD _PTADD 
+setVelocidad              USES velElegida 
+inicializacionPuertos     USES _PTBDD _PTBD _PTGDD _PTCDD _PTADD 
 mostrarUso                USES _Jump_Table_Header_Offset _PTBD 
 estadoPOnOff              USES _Jump_Table_Header_Offset _PTGD 
 estadoPCV                 USES _Jump_Table_Header_Offset _PTCD 
-indicarVelocidadElegida   USES digito _PTCD 
+indicarVelocidadElegida   USES digito mostrarNumero 
 apagar                    USES apagarTimer mostrarUso controlEncendido 
 apagarTimer               USES _TPM1SC 
 encender                  USES inicializacionTimer leerHorasDeMemoria 
                                 cantidadHoras controlEncendido 
-determinarUso             USES usoActual 
 leerHorasDeMemoria        USES leer_memo strtol 
 inicializacionTimer       USES _TPM1SC _TPM1MOD 
-pinInterrupt              USES _KBISC _PTAD manejarDC0 
+pinInterrupt              USES _KBISC manejarDC0 
 tm1Interrupt              USES _TPM1SC controlEncendido contadorSegundos 
                                 contadorMinutos cantidadHoras escribirHorasEnMemoria 
 escribirHorasEnMemoria    USES my_itoa memcpy strlen escribir_memo 
-manejarDC0                USES cicloCompleto contadorCiclos velElegida 
+manejarDC0                USES pulsos cicloCompleto contadorCiclos velElegida 
                                 secuencia _PTBD 
-cicloCompleto             USES pulsos 
-my_itoa                   USES STRING..d.2 sprintf 
+my_itoa                   USES STRING..d.1 sprintf 
+mostrarNumero             USES _PTCDD _PTCD 
 vprintf                   USES _out vprintf _Search_Table_8_Offset 
                                 _IMUL_STAR08 _Jump_Table_Addr _Search_Table_8_Addr pbuf 
                                 _SEXT16_32 _POP32 _LNEG pow8 _LCMP pow16 pow10 _COPY 
@@ -1418,63 +1434,15 @@ DEPENDENCY TREE
  |  +- cambiarVelocidad    
  |  |    
  |  +- indicarVelocidadElegida
- |  |    
- |  +- reiniciar           
+ |  |  | 
+ |  |  +- mostrarNumero       
+ |  |       
+ |  +- iniciarCambioDeModo 
  |     | 
- |     +- indicarReinicio     
- |     |    
- |     +- reiniciarHoras      
+ |     +- indicarCambioDeModo 
  |        | 
- |        +- escribirHorasEnMemoria
- |           | 
- |           +- my_itoa             
- |           |  | 
- |           |  +- sprintf             
- |           |     | 
- |           |     +- deposit_char        
- |           |     |    
- |           |     +- vprintf             
- |           |        | 
- |           |        +- _out                
- |           |        |    
- |           |        +- _Search_Table_8_Offset
- |           |        |    
- |           |        +- _IMUL_STAR08        
- |           |        |    
- |           |        +- _Jump_Table_Addr    
- |           |        |    
- |           |        +- _Search_Table_8_Addr
- |           |        |    
- |           |        +- _SEXT16_32           (see above)
- |           |        |  
- |           |        +- _POP32               (see above)
- |           |        |  
- |           |        +- _LNEG                (see above)
- |           |        |  
- |           |        +- _LCMP                (see above)
- |           |        |  
- |           |        +- _COPY                (see above)
- |           |        |  
- |           |        +- _LSUB               
- |           |           | 
- |           |           +- _ENTER_BINARY_L      (see above)
- |           |           |  
- |           |           +- _LSUB_k_is_k_minus_j (see above)
- |           |              
- |           +- memcpy              
- |           |    
- |           +- strlen              
- |           |    
- |           +- escribir_memo       
- |              | 
- |              +- i2c_tx               (see above)
- |              |  
- |              +- I2Cdelay             (see above)
- |              |  
- |              +- i2c_stop             (see above)
- |              |  
- |              +- i2c_start            (see above)
- |                 
+ |        +- mostrarNumero        (see above)
+ |           
  +- _Startup            
     | 
     +- Init                
@@ -1491,18 +1459,20 @@ DEPENDENCY TREE
        | 
        +- decodificado        
           | 
-          +- leerCodigo          
-             | 
-             +- leerEstado          
-             |  | 
-             |  +- apagar               (see above)
-             |  |  
-             |  +- encender             (see above)
-             |     
-             +- leerVelocidad       
-                | 
-                +- strtol               (see above)
-                   
+          +- leerEstado          
+          |    
+          +- leerVelocidad       
+          |  | 
+          |  +- strtol               (see above)
+          |     
+          +- estadoControl       
+          |  | 
+          |  +- apagar               (see above)
+          |  |  
+          |  +- encender             (see above)
+          |     
+          +- setVelocidad        
+               
  _Vector_25          
  | 
  +- pinInterrupt        
@@ -1515,8 +1485,56 @@ DEPENDENCY TREE
  | 
  +- tm1Interrupt        
     | 
-    +- escribirHorasEnMemoria (see above)
-       
+    +- escribirHorasEnMemoria
+       | 
+       +- my_itoa             
+       |  | 
+       |  +- sprintf             
+       |     | 
+       |     +- deposit_char        
+       |     |    
+       |     +- vprintf             
+       |        | 
+       |        +- _out                
+       |        |    
+       |        +- _Search_Table_8_Offset
+       |        |    
+       |        +- _IMUL_STAR08        
+       |        |    
+       |        +- _Jump_Table_Addr    
+       |        |    
+       |        +- _Search_Table_8_Addr
+       |        |    
+       |        +- _SEXT16_32           (see above)
+       |        |  
+       |        +- _POP32               (see above)
+       |        |  
+       |        +- _LNEG                (see above)
+       |        |  
+       |        +- _LCMP                (see above)
+       |        |  
+       |        +- _COPY                (see above)
+       |        |  
+       |        +- _LSUB               
+       |           | 
+       |           +- _ENTER_BINARY_L      (see above)
+       |           |  
+       |           +- _LSUB_k_is_k_minus_j (see above)
+       |              
+       +- memcpy              
+       |    
+       +- strlen              
+       |    
+       +- escribir_memo       
+          | 
+          +- i2c_tx               (see above)
+          |  
+          +- I2Cdelay             (see above)
+          |  
+          +- i2c_stop             (see above)
+          |  
+          +- i2c_start            (see above)
+             
 *********************************************************************************************
 STATISTIC SECTION
 ---------------------------------------------------------------------------------------------
@@ -1524,5 +1542,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 8
-Total size of all blocks to be downloaded: 5804
+Total size of all blocks to be downloaded: 5795
 
