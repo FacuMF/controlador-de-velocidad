@@ -35,6 +35,8 @@ enum{
 char* my_itoa(int);
 char cicloCompleto(char);
 void mostrarNumero(unsigned char);
+void mostrarHorasEnDisplay(int);
 char determinarUso(int);
+void delay(char);
 
 #endif /* UTILS_H_ */

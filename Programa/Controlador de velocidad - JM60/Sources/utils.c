@@ -37,6 +37,37 @@ void mostrarNumero(unsigned char digitoMostrado){
 	}
 }
 
+void mostrarHorasEnDisplay(int horas){
+	int horasAMostrar[4];
+	char i;
+	horasAMostrar[0] = horas/1000;
+	horasAMostrar[1] = horas/100 - horasAMostrar[0];
+	horasAMostrar[2] = horas/10 - horasAMostrar[0] - horasAMostrar[1];
+	horasAMostrar[3] = horas - horasAMostrar[0] - horasAMostrar[1] - horasAMostrar[2];
+	
+	for(i = 0; i<4; i++){
+		mostrarNumero(horasAMostrar[i]);
+		delay(10);
+	}
+}
+
+void delay(char segundos){
+	TPM2SC = 0b0001111;
+	switch(segundos){
+	case 5: 
+		TPM2MOD = 31249; //5s
+		break;
+	case 10:
+		TPM2MOD = 62499; //1s
+		break;		
+		
+	}
+	while(!TPM2SC_TOF);
+	TPM2SC_TOF = 0;
+	TPM2SC = 0;
+	
+}
+
 char determinarUso(int horas) {
 	if (horas > 0 && horas <= HORAS_BAJO)
 		return BAJO;

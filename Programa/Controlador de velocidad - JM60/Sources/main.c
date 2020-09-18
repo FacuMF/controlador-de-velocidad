@@ -41,7 +41,7 @@ char pulsos = 0;
 
 unsigned char digito[10] = { 0b11111100, 0b01100000, 0b11011010, 0b11110010,
 		0b01100110, 0b10110110, 0b10111110, 0b11100000, 0b11111110, 0b11110110 };
-char estado = 1;
+char estado = modoNormal;
 void main(void) {
 	char estadoOnOff = 0;
 	char estadoCV = 0;
@@ -56,35 +56,41 @@ void main(void) {
 
 	//TODO: grabar 0s en la memoria para que empiece bien
 	for (;;) {
-		if (ON_OFF == 1 && CV == 1) {
+		if (ON_OFF == 1 && CV == 1)
 			estado = cambioDeModo;
-		} else {
+
+		switch (estado) {
+		case cambioDeModo:
+			//TODO que devuelva si cambia a modo normal o servicio
+			estado = iniciarCambioDeModo();
+			break;
+		case modoNormal:
 			estadoOnOff = estadoPOnOff(&pOnOff, &auxOnOff);
 			estadoCV = estadoPCV(&pCV, &auxCV);
 
-			if (estadoOnOff == 1 && estadoCV == 0) {
+			if (estadoOnOff) {
 				(controlEncendido) ? apagar() : encender();
 			}
 
 			if (controlEncendido) {
 				usoActual = determinarUso(cantidadHoras);
 				mostrarUso(usoActual);
-				if (estadoCV == 1 && estadoOnOff == 0) {
+				if (estadoCV) {
 					cambiarVelocidad();
 					indicarVelocidadElegida(velElegida);
 				}
 			}
-		}
-		
-		switch(estado){
-			case cambioDeModo:
-				//TODO que devuelva si cambia a modo normal o servicio
-				estado = iniciarCambioDeModo();
-				break;
-			case modoNormal:
-				break;
-			case modoServicio:
-				break;
+			break;
+		case modoServicio:
+			estadoOnOff = estadoPOnOff(&pOnOff, &auxOnOff);
+			estadoCV = estadoPCV(&pCV, &auxCV);
+			
+			if(estadoOnOff)
+				reiniciarHoras();
+			
+			if(estadoCV)
+				mostrarHorasEnDisplay(cantidadHoras);
+			break;
 		}
 
 	}
@@ -127,7 +133,6 @@ void inicializacionPinInterrupts() {
 	KBISC_KBACK = 0;
 	KBISC = 0x02; //int habilitadas y solo detecta flancos asc y desc
 }
-
 
 __interrupt 11 void tovf(void) {
 	if (esperoSigInstruccion == TRUE) {
@@ -183,8 +188,8 @@ void decodificado(int res) {
 	}
 }
 
-void estadoControl(char onOff){
-	(onOff)? encender() : apagar(); 
+void estadoControl(char onOff) {
+	(onOff) ? encender() : apagar();
 }
 
 char iniciarCambioDeModo() {
@@ -202,39 +207,34 @@ char iniciarCambioDeModo() {
 	TPM2SC = 0;
 	if (reinicioCompleto == TIEMPO_REINICIO) {
 		indicarCambioDeModo();
-		//reiniciarHoras();
-		if(estado == modoNormal)
+		if (estado == modoNormal)
 			return modoServicio;
-		if(estado == modoServicio)
+		if (estado == modoServicio)
 			return modoNormal;
 	}
 }
+
 void indicarCambioDeModo() {
 	int i;
-	TPM2SC = 0b0001111;
-	TPM2MOD = 31249; //0.5s
 	mostrarNumero(VACIO);
 	for (i = 0; i < 6; i++) {
 		mostrarNumero(~VACIO);
-		while (TPM2SC_TOF == 0)
-			;
-		TPM2SC_TOF = 0;
+		delay(5);
 	}
-	TPM2SC = 0;
 }
 
 void reiniciarHoras() {
 	escribirHorasEnMemoria(0);
+	mostrarHorasEnDisplay(0);
 }
+
 void cambiarVelocidad() {
 	(velElegida == LIMITE_VELOCIDADES) ? velElegida = VEL_1 : velElegida++;
 }
 
-void setVelocidad(char vel){
+void setVelocidad(char vel) {
 	velElegida = vel + 1;
 }
-
-
 
 void mostrarUso(char estado) {
 	switch (estado) {
@@ -331,7 +331,6 @@ void encender() {
 	controlEncendido = 1;
 }
 
-
 int leerHorasDeMemoria() {
 	int horasLeidas;
 	unsigned char horas[4];
@@ -382,8 +381,6 @@ void manejarDC0() {
 			contadorCiclos = 0;
 	}
 }
-
-
 
 /*
  * DCO:

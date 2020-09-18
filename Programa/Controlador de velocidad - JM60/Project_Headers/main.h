@@ -127,7 +127,8 @@ void manejarRX(void);
 void apagar(void);
 void apagarTimer(void);
 void encender(void);
-void iniciarCambioDeModo(void);
+
+char iniciarCambioDeModo(void);
 void reiniciarHoras(void);
 void indicarCambioDeModo(void);
 
