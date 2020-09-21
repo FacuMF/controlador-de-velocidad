@@ -1,0 +1,20 @@
+Field=Comment~String~Comment~173|Field=Designator~String~Designator~173|Field=Footprint~String~Footprint~173|Field=Quantity~Integer~Quantity~172|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~Controlador de velocidad - Placa fuente.PrjPcb|ReportField=ProjectFullPath~C:\Users\user1\Desktop\Trabajo\Controlador de velocidad\controlador-de-velocidad\PCBs\Controlador de velocidad - Placa fuente\Controlador de velocidad - Placa fuente\Controlador de velocidad - Placa fuente.PrjPcb|ReportField=Title~Bill of Materials For Project [Controlador de velocidad - Placa fuente.PrjPcb] (No PCB Document Selected)|ReportField=TotalQuantity~28|ReportField=ReportTime~09:39:18|ReportField=ReportDate~21/9/2020|ReportField=ReportDateTime~21/9/2020 09:39:18|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~|ReportField=Address2~|ReportField=Address3~|ReportField=Address4~|ReportField=Application_BuildNumber~|ReportField=ApprovedBy~|ReportField=Author~|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=CurrentDate~|ReportField=CurrentTime~|ReportField=Date~|ReportField=DocumentFullPathAndName~|ReportField=DocumentName~|ReportField=DocumentNumber~|ReportField=DrawnBy~|ReportField=Engineer~|ReportField=ImagePath~|ReportField=ModifiedDate~|ReportField=Organization~|ReportField=ProjectName~|ReportField=Revision~|ReportField=Rule~|ReportField=SheetNumber~|ReportField=SheetTotal~|ReportField=Time~|ReportField=Title~|ReportField=DataSourceFileName~Controlador de velocidad - Placa fuente.PrjPcb|ReportField=DataSourceFullPath~C:\Users\user1\Desktop\Trabajo\Controlador de velocidad\controlador-de-velocidad\PCBs\Controlador de velocidad - Placa fuente\Controlador de velocidad - Placa fuente\Controlador de velocidad - Placa fuente.PrjPcb
+1000uF/25V|C1|CAP300RP|1
+0.01uF/100V|C2|CAP200|1
+100n|C3|CAP200|1
+1N4007|D1, D2, D3, D4, D5|DO41|5
+Faston|F1, F2|Faston_V|2
+L|F3|Faston_V|1
+N|F4|Faston_V|1
+Fusible|FB1|Porta_fuse_2|1
+CON5|J1, J2|SIP5|2
+MAC8x|MAC1|TO-220_vert|1
+MOC3023|MOC1|4N33|1
+10K|R1, R2, R5|0805|3
+220|R3|0805|1
+1k|R4|RES300|1
+220|R6|RES300|1
+120|R7|RES400|1
+BC817|T1, T3|SOT23|2
+UC30D-2-120018|T2|Trafo_220_12_1|1
+7805|U1|TO-220 H|1

@@ -1,0 +1,22 @@
+Removed Pin From Net: NetName=GND Pin=1-1
+Removed Pin From Net: NetName=GND Pin=1-2
+Removed Pin From Net: NetName=GND Pin=1-3
+Removed Pin From Net: NetName=GND Pin=1-4
+Removed Pin From Net: NetName=SDA Pin=1-5
+Removed Pin From Net: NetName=SCL Pin=1-6
+Removed Pin From Net: NetName=GND Pin=1-7
+Removed Pin From Net: NetName=VCC Pin=1-8
+Removed Member From Class: ClassName=Controlador de velocidad Member=1
+Change Component Comment : Designator=D2 Old Comment=LED New Comment=AMARILLO
+Change Component Comment : Designator=D1 Old Comment=LED New Comment=ROJO
+Change Component Comment : Designator=D3 Old Comment=LED New Comment=VERDE
+Added Component: Designator=U(SOIC127P600X175-8N)
+Added Pin To Net: NetName=GND Pin=U-1
+Added Pin To Net: NetName=GND Pin=U-2
+Added Pin To Net: NetName=GND Pin=U-3
+Added Pin To Net: NetName=GND Pin=U-4
+Added Pin To Net: NetName=SDA Pin=U-5
+Added Pin To Net: NetName=SCL Pin=U-6
+Added Pin To Net: NetName=GND Pin=U-7
+Added Pin To Net: NetName=VCC Pin=U-8
+Added Member To Class: ClassName=Controlador de velocidad Member=Component U AT24C256C-SSHL-T
