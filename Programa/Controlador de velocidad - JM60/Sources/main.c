@@ -36,7 +36,7 @@ char contadorCiclos = 0;
 
 char contadorSegundos = 0;
 char contadorMinutos = 0;
-int cantidadHoras = 1;
+int cantidadHoras = 0;
 char pulsos = 0;
 
 unsigned char digito[10] = { 0b11111100, 0b01100000, 0b11011010, 0b11110010,
@@ -61,7 +61,6 @@ void main(void) {
 
 		switch (estado) {
 		case cambioDeModo:
-			//TODO que devuelva si cambia a modo normal o servicio
 			estado = iniciarCambioDeModo();
 			break;
 		case modoNormal:
@@ -84,13 +83,15 @@ void main(void) {
 		case modoServicio:
 			estadoOnOff = estadoPOnOff(&pOnOff, &auxOnOff);
 			estadoCV = estadoPCV(&pCV, &auxCV);
-			
-			if(estadoOnOff)
+
+			if (estadoOnOff)
 				reiniciarHoras();
-			
-			if(estadoCV)
+
+			if (estadoCV)
 				mostrarHorasEnDisplay(cantidadHoras);
 			break;
+		default:
+			estado = modoNormal;
 		}
 
 	}
@@ -211,7 +212,8 @@ char iniciarCambioDeModo() {
 			return modoServicio;
 		if (estado == modoServicio)
 			return modoNormal;
-	}
+	} else
+		return modoNormal;
 }
 
 void indicarCambioDeModo() {
@@ -334,9 +336,31 @@ void encender() {
 int leerHorasDeMemoria() {
 	int horasLeidas;
 	unsigned char horas[4];
+	char esCorrecta;
 	leer_memo(horas, 0, 4);
 	horasLeidas = atoi(horas);
+	esCorrecta = chequeoIntegridad(horasLeidas);
+	if (!esCorrecta) {
+		leer_memo(horas, 8, 4);
+		horasLeidas = atoi(horas);
+	}
 	return horasLeidas;
+
+}
+
+char chequeoDeIntegridad(int horas) {
+	int horasDeResguardo;
+	unsigned char horas[4];
+	int y1 = 0, y2 = 0;
+	leer_memo(horas, 8, 4);
+	horasLeidas = atoi(horas);
+	y1 = fHash(horas);
+	y2 = fHash(horasDeResguardo);
+	return y1 == y2;
+}
+
+int fHash(int x){
+	return 3*x+3;
 }
 
 __interrupt 25 void pinInterrupt() {
@@ -354,14 +378,18 @@ __interrupt 15 void tm1Interrupt(void) {
 		contadorMinutos++;
 	}
 
+	if (contadorMinutos == 30)
+		escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
+
 	if (contadorMinutos == 60) {
-		escribirHorasEnMemoria(cantidadHoras);
 		cantidadHoras++;
+		escribirHorasEnMemoria(cantidadHoras, PRIMARIA);
+		escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
 		contadorMinutos = 0;
 	}
 }
 
-void escribirHorasEnMemoria(int horas) {
+void escribirHorasEnMemoria(int horas, int posicion) {
 	char i;
 	unsigned char horasStr[4];
 	int cantidadARellenar;

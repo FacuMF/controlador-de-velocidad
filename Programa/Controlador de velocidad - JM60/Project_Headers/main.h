@@ -81,6 +81,9 @@
 
 #define VACIO 0b00000000
 
+#define PRIMARIA 0
+#define SECUNDARIA 8
+
 enum{
 	VEL_1 = 0,
 	VEL_2  = 1,
@@ -132,7 +135,7 @@ char iniciarCambioDeModo(void);
 void reiniciarHoras(void);
 void indicarCambioDeModo(void);
 
-void escribirHorasEnMemoria(int);
+void escribirHorasEnMemoria(int, int);
 int leerHorasDeMemoria(void);
 
 
