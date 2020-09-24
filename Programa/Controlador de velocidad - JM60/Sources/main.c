@@ -73,6 +73,7 @@ void main(void) {
 
 			if (controlEncendido) {
 				usoActual = determinarUso(cantidadHoras);
+				//TODO: ver que pasa si alcanzo las 5000 horas
 				mostrarUso(usoActual);
 				if (estadoCV) {
 					cambiarVelocidad();
@@ -83,8 +84,10 @@ void main(void) {
 		case modoServicio:
 			estadoOnOff = estadoPOnOff(&pOnOff, &auxOnOff);
 			estadoCV = estadoPCV(&pCV, &auxCV);
-
+			mostrarNumero(digito[5]);//Muestro una S qu indica que me encuentro en modo servicio
+			
 			if (estadoOnOff)
+				//TODO: establecer confirmacion antes de borrar las horas
 				reiniciarHoras();
 
 			if (estadoCV)
@@ -232,6 +235,7 @@ void reiniciarHoras() {
 
 void cambiarVelocidad() {
 	(velElegida == LIMITE_VELOCIDADES) ? velElegida = VEL_1 : velElegida++;
+	//TODO: usar buzzer
 }
 
 void setVelocidad(char vel) {
@@ -246,13 +250,13 @@ void mostrarUso(char estado) {
 		USO_ALTO = APAGADO;
 		break;
 	case MEDIO:
-		USO_BAJO = APAGADO;
+		USO_BAJO = ENCENDIDO;
 		USO_MEDIO = ENCENDIDO;
 		USO_ALTO = APAGADO;
 		break;
 	case ALTO:
-		USO_BAJO = APAGADO;
-		USO_MEDIO = APAGADO;
+		USO_BAJO = ENCENDIDO;
+		USO_MEDIO = ENCENDIDO;
 		USO_ALTO = ENCENDIDO;
 		break;
 	case OFF:
@@ -321,6 +325,7 @@ void apagar() {
 	apagarTimer();
 	mostrarUso(APAGADO);
 	controlEncendido = 0;
+	//TODO: usar buzzer
 }
 
 void apagarTimer() {
@@ -331,6 +336,7 @@ void encender() {
 	inicializacionTimer();
 	cantidadHoras = leerHorasDeMemoria();
 	controlEncendido = 1;
+	//TODO: usar buzzer
 }
 
 int leerHorasDeMemoria() {
@@ -360,7 +366,7 @@ char chequeoDeIntegridad(int horas) {
 }
 
 int fHash(int x){
-	return 3*x+3;
+	return 3*x+5;
 }
 
 __interrupt 25 void pinInterrupt() {
@@ -384,7 +390,7 @@ __interrupt 15 void tm1Interrupt(void) {
 	if (contadorMinutos == 60) {
 		cantidadHoras++;
 		escribirHorasEnMemoria(cantidadHoras, PRIMARIA);
-		escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
+		//escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
 		contadorMinutos = 0;
 	}
 }
