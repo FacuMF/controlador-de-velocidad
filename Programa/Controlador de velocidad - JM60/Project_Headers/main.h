@@ -35,7 +35,10 @@
 #define _USO_ALTO PTBDD_PTBDD4
 #define USO_ALTO PTBD_PTBD4
 #define _OPTO PTBDD_PTBDD5
-#define OPTO PTBD_PTBD5*/
+#define OPTO PTBD_PTBD5
+
+#define _BUZZER PTCDD_PTCDD2
+#define BUZZER PTCD_PTCD2*/
 
 #define _ON_OFF PTGDD_PTGDD0
 #define ON_OFF PTGD_PTGD0
@@ -62,6 +65,8 @@
 #define _OPTO PTBDD_PTBDD3
 #define OPTO PTBD_PTBD3
 
+#define _BUZZER PTCDD_PTCDD2
+#define BUZZER PTCD_PTCD2
 
 #define IntDC0 KBIES_KBEDG0
 #define IntRX KBIES_KBEDG1
@@ -80,6 +85,8 @@
 #define PULSADO 0
 
 #define VACIO 0b00000000
+#define GUION 0b00000010
+#define CONFIRMACION 0b10011100
 
 #define PRIMARIA 0
 #define SECUNDARIA 8
@@ -138,6 +145,10 @@ void indicarCambioDeModo(void);
 void escribirHorasEnMemoria(int, int);
 int leerHorasDeMemoria(void);
 
+void notificarConBuzzer(void);
+
+char chequeoDeIntegridad(int);
+int fHash(int);
 
 void estadoControl(char);
 void setVelocidad(char);

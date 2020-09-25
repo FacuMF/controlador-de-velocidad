@@ -16,6 +16,7 @@ char prueba[41] = "0000010010110010010110010010100101100011";
 char aux[41];
 
 char estadoActual = '0';
+char confirmacionPendiente = 0;
 
 char secuencia[10][20] = { { 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,
 		0, 1, 1 },
@@ -66,6 +67,7 @@ void main(void) {
 		case modoNormal:
 			estadoOnOff = estadoPOnOff(&pOnOff, &auxOnOff);
 			estadoCV = estadoPCV(&pCV, &auxCV);
+			indicarVelocidadElegida(velElegida);
 
 			if (estadoOnOff) {
 				(controlEncendido) ? apagar() : encender();
@@ -77,21 +79,34 @@ void main(void) {
 				mostrarUso(usoActual);
 				if (estadoCV) {
 					cambiarVelocidad();
-					indicarVelocidadElegida(velElegida);
 				}
 			}
 			break;
 		case modoServicio:
 			estadoOnOff = estadoPOnOff(&pOnOff, &auxOnOff);
 			estadoCV = estadoPCV(&pCV, &auxCV);
-			mostrarNumero(digito[5]);//Muestro una S qu indica que me encuentro en modo servicio
-			
-			if (estadoOnOff)
-				//TODO: establecer confirmacion antes de borrar las horas
-				reiniciarHoras();
-
-			if (estadoCV)
-				mostrarHorasEnDisplay(cantidadHoras);
+			if(confirmacionPendiente){
+				mostrarNumero(CONFIRMACION);
+				if (estadoOnOff == 1){
+					reiniciarHoras();
+					confirmacionPendiente = 0;
+					notificarConBuzzer();
+				}
+				if(estadoCV){
+					confirmacionPendiente = 0;
+					notificarConBuzzer();
+				}
+			}
+			else{
+				mostrarNumero(GUION);//Muestro un giuon que indica que me encuentro en modo servicio
+				if (estadoOnOff == 1){
+					confirmacionPendiente = 1;
+				}
+	
+				if (estadoCV)
+					mostrarHorasEnDisplay(cantidadHoras);
+				
+			}
 			break;
 		default:
 			estado = modoNormal;
@@ -112,11 +127,13 @@ void inicializacionPuertos() {
 	_USO_MEDIO = SALIDA;
 	_USO_ALTO = SALIDA;
 	_OPTO = SALIDA;
+	_BUZZER = SALIDA;
 
 	USO_BAJO = APAGADO;
 	USO_MEDIO = APAGADO;
 	USO_ALTO = APAGADO;
 	OPTO = APAGADO;
+	BUZZER = APAGADO;
 
 	_ON_OFF = ENTRADA;
 	_CV = ENTRADA;
@@ -229,17 +246,24 @@ void indicarCambioDeModo() {
 }
 
 void reiniciarHoras() {
-	escribirHorasEnMemoria(0);
+	escribirHorasEnMemoria(0, PRIMARIA);
 	mostrarHorasEnDisplay(0);
 }
 
 void cambiarVelocidad() {
 	(velElegida == LIMITE_VELOCIDADES) ? velElegida = VEL_1 : velElegida++;
-	//TODO: usar buzzer
+	notificarConBuzzer();	
 }
 
 void setVelocidad(char vel) {
 	velElegida = vel + 1;
+}
+
+void notificarConBuzzer(void){
+	int i;	
+	for(i = 0; i<10000; i++)
+		BUZZER = ENCENDIDO;
+	BUZZER = APAGADO;
 }
 
 void mostrarUso(char estado) {
@@ -325,7 +349,7 @@ void apagar() {
 	apagarTimer();
 	mostrarUso(APAGADO);
 	controlEncendido = 0;
-	//TODO: usar buzzer
+	notificarConBuzzer();
 }
 
 void apagarTimer() {
@@ -336,7 +360,7 @@ void encender() {
 	inicializacionTimer();
 	cantidadHoras = leerHorasDeMemoria();
 	controlEncendido = 1;
-	//TODO: usar buzzer
+	notificarConBuzzer();
 }
 
 int leerHorasDeMemoria() {
@@ -345,7 +369,7 @@ int leerHorasDeMemoria() {
 	char esCorrecta;
 	leer_memo(horas, 0, 4);
 	horasLeidas = atoi(horas);
-	esCorrecta = chequeoIntegridad(horasLeidas);
+	esCorrecta = chequeoDeIntegridad(horasLeidas);
 	if (!esCorrecta) {
 		leer_memo(horas, 8, 4);
 		horasLeidas = atoi(horas);
@@ -354,13 +378,13 @@ int leerHorasDeMemoria() {
 
 }
 
-char chequeoDeIntegridad(int horas) {
+char chequeoDeIntegridad(int horasLeidas) {
 	int horasDeResguardo;
 	unsigned char horas[4];
 	int y1 = 0, y2 = 0;
 	leer_memo(horas, 8, 4);
 	horasLeidas = atoi(horas);
-	y1 = fHash(horas);
+	y1 = fHash(horasLeidas);
 	y2 = fHash(horasDeResguardo);
 	return y1 == y2;
 }
@@ -391,6 +415,7 @@ __interrupt 15 void tm1Interrupt(void) {
 		cantidadHoras++;
 		escribirHorasEnMemoria(cantidadHoras, PRIMARIA);
 		//escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
+		//TODO: revisar
 		contadorMinutos = 0;
 	}
 }
@@ -403,7 +428,7 @@ void escribirHorasEnMemoria(int horas, int posicion) {
 	cantidadARellenar = 4 - strlen(horasStr);
 	for (i = 0; i < cantidadARellenar; i++)
 		horasStr[i] = '0';
-	escribir_memo(horasStr, 0, strlen(horasStr));
+	escribir_memo(horasStr, posicion, strlen(horasStr));
 }
 
 void manejarDC0() {
