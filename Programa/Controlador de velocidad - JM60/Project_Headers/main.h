@@ -38,7 +38,9 @@
 #define OPTO PTBD_PTBD5
 
 #define _BUZZER PTCDD_PTCDD2
-#define BUZZER PTCD_PTCD2*/
+#define BUZZER PTCD_PTCD2
+#define _TR PTCDD_PTCDD3
+#define TR PTCD_PTCD3*/
 
 #define _ON_OFF PTGDD_PTGDD0
 #define ON_OFF PTGD_PTGD0
@@ -65,8 +67,11 @@
 #define _OPTO PTBDD_PTBDD3
 #define OPTO PTBD_PTBD3
 
-#define _BUZZER PTCDD_PTCDD2
-#define BUZZER PTCD_PTCD2
+#define _BUZZER PTGDD_PTGDD3
+#define BUZZER PTGD_PTGD3
+
+#define _TR PTCDD_PTCDD3
+#define TR PTCD_PTCD3
 
 #define IntDC0 KBIES_KBEDG0
 #define IntRX KBIES_KBEDG1
@@ -84,7 +89,7 @@
 #define ABIERTO 1
 #define PULSADO 0
 
-#define VACIO 0b00000000
+#define VACIO 0b00000001
 #define GUION 0b00000010
 #define CONFIRMACION 0b10011100
 
@@ -128,7 +133,7 @@ void decodificado(int);
 void mostrarUso(char);
 char estadoPOnOff(char*, char*);
 char estadoPCV(char*, char*);
-void indicarVelocidadElegida(char);
+void indicarVelocidadElegida(unsigned char);
 void cambiarVelocidad(void);
 
 void manejarDC0(void);

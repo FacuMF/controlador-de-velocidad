@@ -40,8 +40,8 @@ char contadorMinutos = 0;
 int cantidadHoras = 0;
 char pulsos = 0;
 
-unsigned char digito[10] = { 0b11111100, 0b01100000, 0b11011010, 0b11110010,
-		0b01100110, 0b10110110, 0b10111110, 0b11100000, 0b11111110, 0b11110110 };
+unsigned char digito[10] = { 0b01111110, 0b00110000, 0b01101101, 0b01111001,
+		0b00110011, 0b01011011, 0b01011111, 0b01110000, 0b01111111, 0b01111011 };
 char estado = modoNormal;
 void main(void) {
 	char estadoOnOff = 0;
@@ -57,7 +57,7 @@ void main(void) {
 
 	//TODO: grabar 0s en la memoria para que empiece bien
 	for (;;) {
-		if (ON_OFF == 1 && CV == 1)
+		if (ON_OFF == 0 && CV == 0)
 			estado = cambioDeModo;
 
 		switch (estado) {
@@ -67,13 +67,13 @@ void main(void) {
 		case modoNormal:
 			estadoOnOff = estadoPOnOff(&pOnOff, &auxOnOff);
 			estadoCV = estadoPCV(&pCV, &auxCV);
-			indicarVelocidadElegida(velElegida);
 
 			if (estadoOnOff) {
 				(controlEncendido) ? apagar() : encender();
 			}
 
 			if (controlEncendido) {
+				indicarVelocidadElegida(velElegida);
 				usoActual = determinarUso(cantidadHoras);
 				//TODO: ver que pasa si alcanzo las 5000 horas
 				mostrarUso(usoActual);
@@ -81,6 +81,8 @@ void main(void) {
 					cambiarVelocidad();
 				}
 			}
+			else
+				mostrarNumero(VACIO);
 			break;
 		case modoServicio:
 			estadoOnOff = estadoPOnOff(&pOnOff, &auxOnOff);
@@ -88,7 +90,7 @@ void main(void) {
 			if(confirmacionPendiente){
 				mostrarNumero(CONFIRMACION);
 				if (estadoOnOff == 1){
-					reiniciarHoras();
+					//reiniciarHoras();
 					confirmacionPendiente = 0;
 					notificarConBuzzer();
 				}
@@ -128,13 +130,19 @@ void inicializacionPuertos() {
 	_USO_ALTO = SALIDA;
 	_OPTO = SALIDA;
 	_BUZZER = SALIDA;
+	_TR = SALIDA;
+	_DATA = SALIDA;
+	_CLK = SALIDA;
 
 	USO_BAJO = APAGADO;
 	USO_MEDIO = APAGADO;
 	USO_ALTO = APAGADO;
 	OPTO = APAGADO;
 	BUZZER = APAGADO;
-
+	TR = ENCENDIDO;
+	DATA = APAGADO;
+	CLK = APAGADO;
+	
 	_ON_OFF = ENTRADA;
 	_CV = ENTRADA;
 	_RX = ENTRADA;
@@ -341,7 +349,7 @@ char estadoPCV(char* pCV, char* aux) {
 	return *aux;
 }
 
-void indicarVelocidadElegida(char velElegida) {
+void indicarVelocidadElegida(unsigned char velElegida) {
 	mostrarNumero(digito[velElegida]);
 }
 
@@ -358,7 +366,7 @@ void apagarTimer() {
 
 void encender() {
 	inicializacionTimer();
-	cantidadHoras = leerHorasDeMemoria();
+	//cantidadHoras = leerHorasDeMemoria();
 	controlEncendido = 1;
 	notificarConBuzzer();
 }
@@ -400,6 +408,7 @@ __interrupt 25 void pinInterrupt() {
 
 __interrupt 15 void tm1Interrupt(void) {
 	TPM1SC_TOF = 0;
+	//TR = 0;
 	if (controlEncendido) {
 		contadorSegundos++;
 	}
@@ -409,11 +418,11 @@ __interrupt 15 void tm1Interrupt(void) {
 	}
 
 	if (contadorMinutos == 30)
-		escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
+		//escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
 
 	if (contadorMinutos == 60) {
 		cantidadHoras++;
-		escribirHorasEnMemoria(cantidadHoras, PRIMARIA);
+		//escribirHorasEnMemoria(cantidadHoras, PRIMARIA);
 		//escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
 		//TODO: revisar
 		contadorMinutos = 0;

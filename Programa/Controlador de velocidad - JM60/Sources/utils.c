@@ -23,18 +23,24 @@ unsigned char* my_itoa(int number) {
 }
 
 void mostrarNumero(unsigned char digitoMostrado){
-	int i;
+	int i,h;
+	int numero;
 	_DATA = SALIDA;
 	_CLK = SALIDA;
 	DATA = APAGADO;
 	CLK = APAGADO;
+	TR = 1;
 	
-	for (i = 0; i <= 7; i++) {
-		DATA = digitoMostrado & 1;
+	for (i = 0; i < 7; i++) {
+		numero = digitoMostrado & 1; 
+		DATA = numero;
 		CLK = 1;
 		CLK = 0;
 		digitoMostrado = digitoMostrado >> 1;
 	}
+	//for(i=0;i<20000;i++);
+	for(i=0;i<20000;i++);
+	TR = 0;
 }
 
 void mostrarHorasEnDisplay(int horas){
