@@ -28,19 +28,19 @@ Entry point: 0x19DB (_Startup)
 _startupData is allocated at 0x19E4 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x100     278
-  _Copy    *toCopyDownBeg 0x2787
+  _Range   pZeroOut       0x100     279
+  _Copy    *toCopyDownBeg 0x28A9
 } _startupData;
 
 *********************************************************************************************
 SECTION-ALLOCATION SECTION
 Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
-.data                            213   R/W      0x100      0x1D4   RAM
+.data                            214   R/W      0x100      0x1D5   RAM
 .init                            132     R     0x1960     0x19E3   ROM
 .startData                        18     R     0x19E4     0x19F5   ROM
-.text                           3473     R     0x19F6     0x2786   ROM
-.copy                            219     R     0x2787     0x2861   ROM
+.text                           3763     R     0x19F6     0x28A8   ROM
+.copy                            220     R     0x28A9     0x2984   ROM
 .abs_section_ffe8                  2     R     0xFFE8     0xFFE9   .absSeg0
 .abs_section_ffcc                  2     R     0xFFCC     0xFFCD   .absSeg1
 .abs_section_ffe0                  2     R     0xFFE0     0xFFE1   .absSeg2
@@ -192,14 +192,14 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_1810                  2   N/I     0x1810     0x1811   .absSeg148
 .abs_section_1812                  2   N/I     0x1812     0x1813   .absSeg149
 .abs_section_1814                  2   N/I     0x1814     0x1815   .absSeg150
-.bss                              61   R/W      0x1D5      0x211   RAM
-.common                            4   R/W      0x212      0x215   RAM
-.stack                           128   R/W      0x216      0x295   RAM
+.bss                              61   R/W      0x1D6      0x212   RAM
+.common                            4   R/W      0x213      0x216   RAM
+.stack                           128   R/W      0x217      0x296   RAM
 .vectSeg151_vect                   2     R     0xFFFE     0xFFFF   .vectSeg151
 
 Summary of section sizes per section type:
-READ_ONLY (R):         F0A (dec:     3850)
-READ_WRITE (R/W):      196 (dec:      406)
+READ_ONLY (R):        102D (dec:     4141)
+READ_WRITE (R/W):      197 (dec:      407)
 NO_INIT (N/I):          AC (dec:      172)
 
 *********************************************************************************************
@@ -219,62 +219,63 @@ MODULE:                 -- decodificacion_c.obj --
 - VARIABLES:
 MODULE:                 -- main_c.obj --
 - PROCEDURES:
-     main                                      1A53      F5     245       3   .text       
-     initDeteccionFlancos                      1B48       8       8       1   .text       
-     inicializacionPuertos                     1B50      29      41       1   .text       
-     inicializacionTimer                       1B79       9       9       1   .text       
-     tovf                                      1B82      15      21       1   .text       
-     tiempoDeMedicion                          1B97      6C     108       1   .text       
-     decodificado                              1C03      7D     125       1   .text       
-     estadoControl                             1C80       F      15       1   .text       
-     iniciarCambioDeModo                       1C8F      53      83       1   .text       
-     indicarCambioDeModo                       1CE2      26      38       1   .text       
-     cambiarVelocidad                          1D08      13      19       1   .text       
-     setVelocidad                              1D1B       5       5       1   .text       
-     notificarConBuzzer                        1D20      1B      27       5   .text       
-     mostrarUso                                1D3B      27      39       2   .text       
-     estadoPOnOff                              1D62      4A      74       2   .text       
-     estadoPCV                                 1DAC      4A      74       2   .text       
-     indicarVelocidadElegida                   1DF6       8       8       1   .text       
-     apagar                                    1DFE       E      14       2   .text       
-     apagarTimer                               1E0C       3       3       1   .text       
-     encender                                  1E0F       B      11       2   .text       
-     pinInterrupt                              1E1A       8       8       1   .text       
-     tm1Interrupt                              1E22      34      52       1   .text       
-     manejarDC0                                1E56      36      54       1   .text       
+     main                                      1A53     107     263       3   .text       
+     initDeteccionFlancos                      1B5A       8       8       1   .text       
+     inicializacionPuertos                     1B62      29      41       1   .text       
+     inicializacionTimer                       1B8B       9       9       1   .text       
+     tovf                                      1B94      15      21       1   .text       
+     tiempoDeMedicion                          1BA9      6C     108       1   .text       
+     decodificado                              1C15      7D     125       1   .text       
+     estadoControl                             1C92       F      15       1   .text       
+     iniciarCambioDeModo                       1CA1      54      84       1   .text       
+     indicarCambioDeModo                       1CF5      33      51       1   .text       
+     cambiarVelocidad                          1D28      13      19       1   .text       
+     setVelocidad                              1D3B       5       5       1   .text       
+     notificarConBuzzer                        1D40      1B      27       6   .text       
+     mostrarUso                                1D5B      27      39       2   .text       
+     estadoPOnOff                              1D82      4A      74       2   .text       
+     estadoPCV                                 1DCC      4A      74       2   .text       
+     indicarVelocidadElegida                   1E16       8       8       1   .text       
+     apagar                                    1E1E       E      14       2   .text       
+     apagarTimer                               1E2C       3       3       1   .text       
+     encender                                  1E2F       B      11       2   .text       
+     pinInterrupt                              1E3A       8       8       1   .text       
+     tm1Interrupt                              1E42      34      52       1   .text       
+     manejarDC0                                1E76      36      54       1   .text       
+     mostrarNumero                             1EAC      51      81       7   .text       
+     mostrarHorasEnDisplay                     1EFD     14E     334       1   .text       
 - VARIABLES:
      estadoActual                               100       1       1       1   .data       
      secuencia                                  101      C8     200       1   .data       
      usoActual                                  1C9       1       1       1   .data       
-     digito                                     1CA       A      10       1   .data       
-     estado                                     1D4       1       1       4   .data       
-     t                                          1D5       2       2       7   .bss        
-     u                                          1D7       2       2       7   .bss        
-     w                                          1D9       2       2       3   .bss        
-     contadorPulsos                             1DB       2       2       6   .bss        
-     decodificacion                             1DD       2       2       3   .bss        
-     v                                          1DF      28      40       4   .bss        
-     esperoSigInstruccion                       207       1       1       3   .bss        
-     terminoStart                               208       1       1       1   .bss        
-     confirmacionPendiente                      209       1       1       4   .bss        
-     velElegida                                 20A       1       1       6   .bss        
-     controlEncendido                           20B       1       1       5   .bss        
-     contadorCiclos                             20C       1       1       4   .bss        
-     contadorSegundos                           20D       1       1       3   .bss        
-     contadorMinutos                            20E       1       1       3   .bss        
-     cantidadHoras                              20F       2       2       3   .bss        
-     pulsos                                     211       1       1       1   .bss        
+     digito                                     1CA       A      10       2   .data       
+     estado                                     1D4       1       1       5   .data       
+     estadoAnterior                             1D5       1       1       3   .data       
+     t                                          1D6       2       2       7   .bss        
+     u                                          1D8       2       2       7   .bss        
+     w                                          1DA       2       2       3   .bss        
+     contadorPulsos                             1DC       2       2       6   .bss        
+     decodificacion                             1DE       2       2       3   .bss        
+     v                                          1E0      28      40       4   .bss        
+     esperoSigInstruccion                       208       1       1       3   .bss        
+     terminoStart                               209       1       1       1   .bss        
+     confirmacionPendiente                      20A       1       1       4   .bss        
+     velElegida                                 20B       1       1       6   .bss        
+     controlEncendido                           20C       1       1       5   .bss        
+     contadorCiclos                             20D       1       1       4   .bss        
+     contadorSegundos                           20E       1       1       3   .bss        
+     contadorMinutos                            20F       1       1       3   .bss        
+     cantidadHoras                              210       2       2       3   .bss        
+     pulsos                                     212       1       1       1   .bss        
      _Vector_11                                FFE8       2       2       0   .abs_section_ffe8
      _Vector_25                                FFCC       2       2       0   .abs_section_ffcc
      _Vector_15                                FFE0       2       2       0   .abs_section_ffe0
-     resultado                                  212       2       2       1   .common     
+     resultado                                  213       2       2       1   .common     
 MODULE:                 -- utils_c.obj --
 - PROCEDURES:
-     cicloCompleto                             1E8C      17      23       1   .text       
-     mostrarNumero                             1EA3      51      81       7   .text       
-     mostrarHorasEnDisplay                     1EF4      A2     162       1   .text       
-     delay                                     1F96      1E      30       2   .text       
-     determinarUso                             1FB4      26      38       1   .text       
+     cicloCompleto                             204B      17      23       1   .text       
+     delay                                     2062      1E      30       2   .text       
+     determinarUso                             2080      37      55       1   .text       
 - VARIABLES:
 MODULE:                 -- start08_c.obj --
 - PROCEDURES:
@@ -284,7 +285,7 @@ MODULE:                 -- start08_c.obj --
 - VARIABLES:
      _startupData                              19E4       6       6       4   .startData  
 - LABELS:
-     __SEG_END_SSTACK                           296       0       0       1               
+     __SEG_END_SSTACK                           297       0       0       1               
 MODULE:                 -- mc9s08jm60_c.obj --
 - PROCEDURES:
 - VARIABLES:
@@ -438,45 +439,48 @@ MODULE:                 -- mc9s08jm60_c.obj --
      _DBGF                                     1814       2       2       0   .abs_section_1814
 MODULE:                 -- ctype.o (ansiis.lib) --
 - PROCEDURES:
-     isdigit                                   1FDA       E      14       1   .text       
-     isspace                                   1FE8      1E      30       2   .text       
-     toupper                                   2006      1C      28       3   .text       
+     isdigit                                   20B7       E      14       1   .text       
+     isspace                                   20C5      1E      30       2   .text       
+     toupper                                   20E3      1C      28       3   .text       
 - VARIABLES:
 MODULE:                 -- rtshc08.o (ansiis.lib) --
 - PROCEDURES:
-     _PUSH_ARGS_L                              2022      20      32       2   .text       
-     _ENTER_UNARY_L                            2042      29      41       1   .text       
-     _ENTER_BINARY_L                           206B      16      22       4   .text       
-     _ENTER_BINARY_L_LC                        2081      1A      26       1   .text       
-     _IDIVMOD                                  209B      69     105       1   .text       
-     _SPLITSIGN                                2104      1C      28       1   .text       
-     _LADD_k_is_k_plus_j                       2120      1F      31       1   .text       
-     _k_is_k_plus_j_l                          213F      1E      30       2   .text       
-     _k_is_k_plus_j_i                          215D      12      18       3   .text       
-     _LSUB_k_is_k_minus_j                      216F      1F      31       1   .text       
-     _LMUL_k_is_k_mul_j                        218E      81     129       1   .text       
-     _LDIVMOD                                  220F      A4     164       1   .text       
-     _LDIVU_k_is_k_div_j                       22B3      17      23       1   .text       
-     _LCMP_k_rel_j                             22CA      1F      31       1   .text       
-     _IDIVS_STAR08                             22E9      1B      27       3   .text       
-     _LNEG                                     2304      1C      28       1   .text       
-     _LADD                                     2320       6       6       1   .text       
-     _LSUB_LC                                  2326       6       6       1   .text       
-     _LMUL                                     232C       6       6       1   .text       
-     _LDIVU                                    2332       6       6       1   .text       
-     _LCMP                                     2338       6       6       1   .text       
-     _COPY                                     233E      30      48       3   .text       
-     _POP32                                    236E      1A      26       2   .text       
-     _SEXT16_32                                2388       D      13       3   .text       
-     _Jump_Table_Header_Offset                 2395      24      36       4   .text       
+     _PUSH_ARGS_L                              20FF      20      32       2   .text       
+     _ENTER_UNARY_L                            211F      29      41       1   .text       
+     _ENTER_BINARY_L                           2148      16      22       4   .text       
+     _ENTER_BINARY_L_LC                        215E      1A      26       1   .text       
+     _IDIVMOD                                  2178      69     105       1   .text       
+     _SPLITSIGN                                21E1      1C      28       1   .text       
+     _LADD_k_is_k_plus_j                       21FD      1F      31       1   .text       
+     _k_is_k_plus_j_l                          221C      1E      30       2   .text       
+     _k_is_k_plus_j_i                          223A      12      18       3   .text       
+     _LSUB_k_is_k_minus_j                      224C      1F      31       1   .text       
+     _LMUL_k_is_k_mul_j                        226B      81     129       1   .text       
+     _LDIVMOD                                  22EC      A4     164       1   .text       
+     _LDIVU_k_is_k_div_j                       2390      17      23       1   .text       
+     _LCMP_k_rel_j                             23A7      1F      31       1   .text       
+     _IMUL_STAR08                              23C6      27      39       6   .text       
+     _IDIVS_STAR08                             23ED      1B      27       3   .text       
+     _LNEG                                     2408      1C      28       1   .text       
+     _LADD                                     2424       6       6       1   .text       
+     _LSUB_LC                                  242A       6       6       1   .text       
+     _LMUL                                     2430       6       6       1   .text       
+     _LDIVU                                    2436       6       6       1   .text       
+     _LCMP                                     243C       6       6       1   .text       
+     _COPY                                     2442      30      48       3   .text       
+     _POP32                                    2472      1A      26       2   .text       
+     _SEXT16_32                                248C       D      13       3   .text       
+     _Jump_Table_Header_Offset                 2499      24      36       4   .text       
+     _PUSH_CC                                  24BD       F      15       1   .text       
+     _POP_CC                                   24CC       F      15       1   .text       
 - VARIABLES:
-     errno                                      214       2       2       2   .common     
+     errno                                      215       2       2       2   .common     
 MODULE:                 -- stdlib.o (ansiis.lib) --
 - PROCEDURES:
-     CheckCharWithBase                         23B9      50      80       2   .text       
-     _strtoul                                  2409     1FF     511       9   .text       
-     _strtol                                   2608     152     338       2   .text       
-     strtol                                    275A      2D      45       1   .text       
+     CheckCharWithBase                         24DB      50      80       2   .text       
+     _strtoul                                  252B     1FF     511       9   .text       
+     _strtol                                   272A     152     338       2   .text       
+     strtol                                    287C      2D      45       1   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -484,14 +488,14 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   decodificacion_c.obj                         0     93      0
-  main_c.obj                                 276   1081      6
-  utils_c.obj                                  0    334      0
+  main_c.obj                                 277   1528      6
+  utils_c.obj                                  0    108      0
   start08_c.obj                                0    132      0
   mc9s08jm60_c.obj                           172      0      0
   ctype.o (ansiis.lib)                         0     72      0
-  rtshc08.o (ansiis.lib)                       2    919      0
+  rtshc08.o (ansiis.lib)                       2    988      0
   stdlib.o (ansiis.lib)                        0    974      0
-  other                                      128     20    219
+  other                                      128     20    220
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
@@ -502,15 +506,15 @@ SECTION: ".text"
   iniciarCambioDeModo indicarCambioDeModo cambiarVelocidad setVelocidad 
   notificarConBuzzer mostrarUso estadoPOnOff estadoPCV indicarVelocidadElegida 
   apagar apagarTimer encender pinInterrupt tm1Interrupt manejarDC0 
-  cicloCompleto mostrarNumero mostrarHorasEnDisplay delay determinarUso isdigit 
+  mostrarNumero mostrarHorasEnDisplay cicloCompleto delay determinarUso isdigit 
   isspace toupper _PUSH_ARGS_L _ENTER_UNARY_L _ENTER_BINARY_L 
   _ENTER_BINARY_L_LC _IDIVMOD _SPLITSIGN _LADD_k_is_k_plus_j _k_is_k_plus_j_l 
   _k_is_k_plus_j_i _LSUB_k_is_k_minus_j _LMUL_k_is_k_mul_j _LDIVMOD 
-  _LDIVU_k_is_k_div_j _LCMP_k_rel_j _IDIVS_STAR08 _LNEG _LADD _LSUB_LC _LMUL 
-  _LDIVU _LCMP _COPY _POP32 _SEXT16_32 _Jump_Table_Header_Offset 
-  CheckCharWithBase _strtoul _strtol strtol 
+  _LDIVU_k_is_k_div_j _LCMP_k_rel_j _IMUL_STAR08 _IDIVS_STAR08 _LNEG _LADD 
+  _LSUB_LC _LMUL _LDIVU _LCMP _COPY _POP32 _SEXT16_32 _Jump_Table_Header_Offset 
+  _PUSH_CC _POP_CC CheckCharWithBase _strtoul _strtol strtol 
 SECTION: ".data"
-  estadoActual secuencia usoActual digito estado 
+  estadoActual secuencia usoActual digito estado estadoAnterior 
 SECTION: ".bss"
   t u w contadorPulsos decodificacion v esperoSigInstruccion terminoStart 
   confirmacionPendiente velElegida controlEncendido contadorCiclos 
@@ -937,26 +941,27 @@ OBJECT LIST SORTED BY ADDRESS
      estadoActual                               100       1       1       1   .data       
      secuencia                                  101      C8     200       1   .data       
      usoActual                                  1C9       1       1       1   .data       
-     digito                                     1CA       A      10       1   .data       
-     estado                                     1D4       1       1       4   .data       
-     t                                          1D5       2       2       7   .bss        
-     u                                          1D7       2       2       7   .bss        
-     w                                          1D9       2       2       3   .bss        
-     contadorPulsos                             1DB       2       2       6   .bss        
-     decodificacion                             1DD       2       2       3   .bss        
-     v                                          1DF      28      40       4   .bss        
-     esperoSigInstruccion                       207       1       1       3   .bss        
-     terminoStart                               208       1       1       1   .bss        
-     confirmacionPendiente                      209       1       1       4   .bss        
-     velElegida                                 20A       1       1       6   .bss        
-     controlEncendido                           20B       1       1       5   .bss        
-     contadorCiclos                             20C       1       1       4   .bss        
-     contadorSegundos                           20D       1       1       3   .bss        
-     contadorMinutos                            20E       1       1       3   .bss        
-     cantidadHoras                              20F       2       2       3   .bss        
-     pulsos                                     211       1       1       1   .bss        
-     resultado                                  212       2       2       1   .common     
-     errno                                      214       2       2       2   .common     
+     digito                                     1CA       A      10       2   .data       
+     estado                                     1D4       1       1       5   .data       
+     estadoAnterior                             1D5       1       1       3   .data       
+     t                                          1D6       2       2       7   .bss        
+     u                                          1D8       2       2       7   .bss        
+     w                                          1DA       2       2       3   .bss        
+     contadorPulsos                             1DC       2       2       6   .bss        
+     decodificacion                             1DE       2       2       3   .bss        
+     v                                          1E0      28      40       4   .bss        
+     esperoSigInstruccion                       208       1       1       3   .bss        
+     terminoStart                               209       1       1       1   .bss        
+     confirmacionPendiente                      20A       1       1       4   .bss        
+     velElegida                                 20B       1       1       6   .bss        
+     controlEncendido                           20C       1       1       5   .bss        
+     contadorCiclos                             20D       1       1       4   .bss        
+     contadorSegundos                           20E       1       1       3   .bss        
+     contadorMinutos                            20F       1       1       3   .bss        
+     cantidadHoras                              210       2       2       3   .bss        
+     pulsos                                     212       1       1       1   .bss        
+     resultado                                  213       2       2       1   .common     
+     errno                                      215       2       2       2   .common     
      _SRS                                      1800       1       1       0   .abs_section_1800
      _SBDFR                                    1801       1       1       0   .abs_section_1801
      _SOPT1                                    1802       1       1       1   .abs_section_1802
@@ -1002,66 +1007,69 @@ OBJECT LIST SORTED BY ADDRESS
      _Startup                                  19DB       9       9       0   .init       
      leerEstado                                19F6      2C      44       1   .text       
      leerVelocidad                             1A22      31      49       1   .text       
-     main                                      1A53      F5     245       3   .text       
-     initDeteccionFlancos                      1B48       8       8       1   .text       
-     inicializacionPuertos                     1B50      29      41       1   .text       
-     inicializacionTimer                       1B79       9       9       1   .text       
-     tovf                                      1B82      15      21       1   .text       
-     tiempoDeMedicion                          1B97      6C     108       1   .text       
-     decodificado                              1C03      7D     125       1   .text       
-     estadoControl                             1C80       F      15       1   .text       
-     iniciarCambioDeModo                       1C8F      53      83       1   .text       
-     indicarCambioDeModo                       1CE2      26      38       1   .text       
-     cambiarVelocidad                          1D08      13      19       1   .text       
-     setVelocidad                              1D1B       5       5       1   .text       
-     notificarConBuzzer                        1D20      1B      27       5   .text       
-     mostrarUso                                1D3B      27      39       2   .text       
-     estadoPOnOff                              1D62      4A      74       2   .text       
-     estadoPCV                                 1DAC      4A      74       2   .text       
-     indicarVelocidadElegida                   1DF6       8       8       1   .text       
-     apagar                                    1DFE       E      14       2   .text       
-     apagarTimer                               1E0C       3       3       1   .text       
-     encender                                  1E0F       B      11       2   .text       
-     pinInterrupt                              1E1A       8       8       1   .text       
-     tm1Interrupt                              1E22      34      52       1   .text       
-     manejarDC0                                1E56      36      54       1   .text       
-     cicloCompleto                             1E8C      17      23       1   .text       
-     mostrarNumero                             1EA3      51      81       7   .text       
-     mostrarHorasEnDisplay                     1EF4      A2     162       1   .text       
-     delay                                     1F96      1E      30       2   .text       
-     determinarUso                             1FB4      26      38       1   .text       
-     isdigit                                   1FDA       E      14       1   .text       
-     isspace                                   1FE8      1E      30       2   .text       
-     toupper                                   2006      1C      28       3   .text       
-     _PUSH_ARGS_L                              2022      20      32       2   .text       
-     _ENTER_UNARY_L                            2042      29      41       1   .text       
-     _ENTER_BINARY_L                           206B      16      22       4   .text       
-     _ENTER_BINARY_L_LC                        2081      1A      26       1   .text       
-     _IDIVMOD                                  209B      69     105       1   .text       
-     _SPLITSIGN                                2104      1C      28       1   .text       
-     _LADD_k_is_k_plus_j                       2120      1F      31       1   .text       
-     _k_is_k_plus_j_l                          213F      1E      30       2   .text       
-     _k_is_k_plus_j_i                          215D      12      18       3   .text       
-     _LSUB_k_is_k_minus_j                      216F      1F      31       1   .text       
-     _LMUL_k_is_k_mul_j                        218E      81     129       1   .text       
-     _LDIVMOD                                  220F      A4     164       1   .text       
-     _LDIVU_k_is_k_div_j                       22B3      17      23       1   .text       
-     _LCMP_k_rel_j                             22CA      1F      31       1   .text       
-     _IDIVS_STAR08                             22E9      1B      27       3   .text       
-     _LNEG                                     2304      1C      28       1   .text       
-     _LADD                                     2320       6       6       1   .text       
-     _LSUB_LC                                  2326       6       6       1   .text       
-     _LMUL                                     232C       6       6       1   .text       
-     _LDIVU                                    2332       6       6       1   .text       
-     _LCMP                                     2338       6       6       1   .text       
-     _COPY                                     233E      30      48       3   .text       
-     _POP32                                    236E      1A      26       2   .text       
-     _SEXT16_32                                2388       D      13       3   .text       
-     _Jump_Table_Header_Offset                 2395      24      36       4   .text       
-     CheckCharWithBase                         23B9      50      80       2   .text       
-     _strtoul                                  2409     1FF     511       9   .text       
-     _strtol                                   2608     152     338       2   .text       
-     strtol                                    275A      2D      45       1   .text       
+     main                                      1A53     107     263       3   .text       
+     initDeteccionFlancos                      1B5A       8       8       1   .text       
+     inicializacionPuertos                     1B62      29      41       1   .text       
+     inicializacionTimer                       1B8B       9       9       1   .text       
+     tovf                                      1B94      15      21       1   .text       
+     tiempoDeMedicion                          1BA9      6C     108       1   .text       
+     decodificado                              1C15      7D     125       1   .text       
+     estadoControl                             1C92       F      15       1   .text       
+     iniciarCambioDeModo                       1CA1      54      84       1   .text       
+     indicarCambioDeModo                       1CF5      33      51       1   .text       
+     cambiarVelocidad                          1D28      13      19       1   .text       
+     setVelocidad                              1D3B       5       5       1   .text       
+     notificarConBuzzer                        1D40      1B      27       6   .text       
+     mostrarUso                                1D5B      27      39       2   .text       
+     estadoPOnOff                              1D82      4A      74       2   .text       
+     estadoPCV                                 1DCC      4A      74       2   .text       
+     indicarVelocidadElegida                   1E16       8       8       1   .text       
+     apagar                                    1E1E       E      14       2   .text       
+     apagarTimer                               1E2C       3       3       1   .text       
+     encender                                  1E2F       B      11       2   .text       
+     pinInterrupt                              1E3A       8       8       1   .text       
+     tm1Interrupt                              1E42      34      52       1   .text       
+     manejarDC0                                1E76      36      54       1   .text       
+     mostrarNumero                             1EAC      51      81       7   .text       
+     mostrarHorasEnDisplay                     1EFD     14E     334       1   .text       
+     cicloCompleto                             204B      17      23       1   .text       
+     delay                                     2062      1E      30       2   .text       
+     determinarUso                             2080      37      55       1   .text       
+     isdigit                                   20B7       E      14       1   .text       
+     isspace                                   20C5      1E      30       2   .text       
+     toupper                                   20E3      1C      28       3   .text       
+     _PUSH_ARGS_L                              20FF      20      32       2   .text       
+     _ENTER_UNARY_L                            211F      29      41       1   .text       
+     _ENTER_BINARY_L                           2148      16      22       4   .text       
+     _ENTER_BINARY_L_LC                        215E      1A      26       1   .text       
+     _IDIVMOD                                  2178      69     105       1   .text       
+     _SPLITSIGN                                21E1      1C      28       1   .text       
+     _LADD_k_is_k_plus_j                       21FD      1F      31       1   .text       
+     _k_is_k_plus_j_l                          221C      1E      30       2   .text       
+     _k_is_k_plus_j_i                          223A      12      18       3   .text       
+     _LSUB_k_is_k_minus_j                      224C      1F      31       1   .text       
+     _LMUL_k_is_k_mul_j                        226B      81     129       1   .text       
+     _LDIVMOD                                  22EC      A4     164       1   .text       
+     _LDIVU_k_is_k_div_j                       2390      17      23       1   .text       
+     _LCMP_k_rel_j                             23A7      1F      31       1   .text       
+     _IMUL_STAR08                              23C6      27      39       6   .text       
+     _IDIVS_STAR08                             23ED      1B      27       3   .text       
+     _LNEG                                     2408      1C      28       1   .text       
+     _LADD                                     2424       6       6       1   .text       
+     _LSUB_LC                                  242A       6       6       1   .text       
+     _LMUL                                     2430       6       6       1   .text       
+     _LDIVU                                    2436       6       6       1   .text       
+     _LCMP                                     243C       6       6       1   .text       
+     _COPY                                     2442      30      48       3   .text       
+     _POP32                                    2472      1A      26       2   .text       
+     _SEXT16_32                                248C       D      13       3   .text       
+     _Jump_Table_Header_Offset                 2499      24      36       4   .text       
+     _PUSH_CC                                  24BD       F      15       1   .text       
+     _POP_CC                                   24CC       F      15       1   .text       
+     CheckCharWithBase                         24DB      50      80       2   .text       
+     _strtoul                                  252B     1FF     511       9   .text       
+     _strtol                                   272A     152     338       2   .text       
+     strtol                                    287C      2D      45       1   .text       
      _Vector_25                                FFCC       2       2       0   .abs_section_ffcc
      _Vector_15                                FFE0       2       2       0   .abs_section_ffe0
      _Vector_11                                FFE8       2       2       0   .abs_section_ffe8
@@ -1083,16 +1091,16 @@ rtshc08.o (ansiis.lib):
   _ENTER_BINARY_L64 _ENTER_BINARY_L64_LC _ENTER_BINARY_L64_RC 
   _LAND_k_is_k_and_j _LOR_k_is_k_or_j _LXOR_k_is_k_xor_j _NEG_L_HX _ABS_L_HX 
   _SPLITSIGN_L _LMODU_k_is_k_mod_j _LMODS_k_is_k_mod_j _LDIVS_k_is_k_div_j 
-  _CMP24_k_rel_j _BMULS _BDIVS _BMODS _IMUL_STAR08 _IDIVU_STAR08 _IMODS_STAR08 
-  _IMODU_STAR08 _IDIVU_8 _IMODU_8 _IASR _ILSR _ILSL _ICMP _LINC _LDEC _LNOT 
-  _LADD_RC _LSUB _LSUB_RC _LAND _LAND_RC _LOR _LOR_RC _LXOR _LXOR_RC _LMUL_RC 
-  _LDIVS _LDIVS_LC _LDIVS_RC _LDIVU_LC _LDIVU_RC _LMODS _LMODS_LC _LMODS_RC 
-  _LMODU _LMODU_LC _LMODU_RC _LASR _LLSR _LLSL _LCMP_RC _PUSH_ARGS_24 
-  _ENTER_BINARY_24_RC _ENTER_BINARY_24 _CMP24 _CMP24_RC _COPY_L _POP64 _STORE32 
-  _STORE64 _SEXT8_32 _CALL_STAR08 _CALL_STAR08_FAR _Jump_Table_Addr 
-  _Jump_Table_Offset _Jump_Table_Header_Addr _Search_Table_16_Addr 
-  _Search_Table_16_Offset _Search_Table_8_Addr _Search_Table_8_Offset _PUSH_CC 
-  _POP_CC _CONV_FAR_TO_NEAR _CONV_FAR_TO_LINEAR _CONV_LINEAR_TO_FAR 
+  _CMP24_k_rel_j _BMULS _BDIVS _BMODS _IDIVU_STAR08 _IMODS_STAR08 _IMODU_STAR08 
+  _IDIVU_8 _IMODU_8 _IASR _ILSR _ILSL _ICMP _LINC _LDEC _LNOT _LADD_RC _LSUB 
+  _LSUB_RC _LAND _LAND_RC _LOR _LOR_RC _LXOR _LXOR_RC _LMUL_RC _LDIVS _LDIVS_LC 
+  _LDIVS_RC _LDIVU_LC _LDIVU_RC _LMODS _LMODS_LC _LMODS_RC _LMODU _LMODU_LC 
+  _LMODU_RC _LASR _LLSR _LLSL _LCMP_RC _PUSH_ARGS_24 _ENTER_BINARY_24_RC 
+  _ENTER_BINARY_24 _CMP24 _CMP24_RC _COPY_L _POP64 _STORE32 _STORE64 _SEXT8_32 
+  _CALL_STAR08 _CALL_STAR08_FAR _Jump_Table_Addr _Jump_Table_Offset 
+  _Jump_Table_Header_Addr _Search_Table_16_Addr _Search_Table_16_Offset 
+  _Search_Table_8_Addr _Search_Table_8_Offset _CONV_FAR_TO_NEAR 
+  _CONV_FAR_TO_LINEAR _CONV_LINEAR_TO_FAR 
 stdlib.o (ansiis.lib):
   atexit getenv system mblen mbtowc wctomb mbstowcs wcstombs strtoul _itoa 
   bsearch swap qsort div ldiv abs labs rand srand 
@@ -1111,13 +1119,13 @@ stdlib.o (ansiis.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0x2787 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0x28A9 ---- SIZE       4 ---
 Filling bytes inserted
- 00D50100
-------- ROM-ADDRESS: 0x278B ---- RAM-ADDRESS: 0x100 ---- SIZE       1 ---
+ 00D60100
+------- ROM-ADDRESS: 0x28AD ---- RAM-ADDRESS: 0x100 ---- SIZE       1 ---
 Name of initialized Object : estadoActual
  30
-------- ROM-ADDRESS: 0x278C ---- RAM-ADDRESS: 0x101 ---- SIZE     200 ---
+------- ROM-ADDRESS: 0x28AE ---- RAM-ADDRESS: 0x101 ---- SIZE     200 ---
 Name of initialized Object : secuencia
  0100000100 0001000001 0000010000
  0100000101 0100000100 0001000001
@@ -1133,16 +1141,19 @@ Name of initialized Object : secuencia
  0101010101 0101010101 0101000101
  0101010101 0101010101 0101010101
  0101010101
-------- ROM-ADDRESS: 0x2854 ---- RAM-ADDRESS: 0x1C9 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0x2976 ---- RAM-ADDRESS: 0x1C9 ---- SIZE       1 ---
 Name of initialized Object : usoActual
  01
-------- ROM-ADDRESS: 0x2855 ---- RAM-ADDRESS: 0x1CA ---- SIZE      10 ---
+------- ROM-ADDRESS: 0x2977 ---- RAM-ADDRESS: 0x1CA ---- SIZE      10 ---
 Name of initialized Object : digito
  7E306D7933 5B5F707F7B
-------- ROM-ADDRESS: 0x285F ---- RAM-ADDRESS: 0x1D4 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0x2981 ---- RAM-ADDRESS: 0x1D4 ---- SIZE       1 ---
 Name of initialized Object : estado
  01
-------- ROM-ADDRESS: 0x2860 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0x2982 ---- RAM-ADDRESS: 0x1D5 ---- SIZE       1 ---
+Name of initialized Object : estadoAnterior
+ 02
+------- ROM-ADDRESS: 0x2983 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1154,11 +1165,12 @@ _Startup                  USES __SEG_END_SSTACK Init main
 leerVelocidad             USES strtol 
 main                      USES _SOPT1 inicializacionPuertos 
                                 initDeteccionFlancos _PTGD _PTCD estado main 
-                                _Jump_Table_Header_Offset iniciarCambioDeModo estadoPOnOff estadoPCV 
-                                controlEncendido encender apagar velElegida 
-                                indicarVelocidadElegida cantidadHoras determinarUso usoActual 
-                                mostrarUso cambiarVelocidad mostrarNumero 
-                                confirmacionPendiente notificarConBuzzer mostrarHorasEnDisplay 
+                                _Jump_Table_Header_Offset estadoAnterior iniciarCambioDeModo 
+                                estadoPOnOff estadoPCV controlEncendido encender apagar 
+                                velElegida indicarVelocidadElegida cantidadHoras 
+                                determinarUso usoActual mostrarUso cambiarVelocidad 
+                                mostrarNumero confirmacionPendiente notificarConBuzzer 
+                                mostrarHorasEnDisplay 
 initDeteccionFlancos      USES _TPM1C1SC _TPM1SC 
 inicializacionPuertos     USES _PTBDD _PTGDD _PTCDD _PTBD _PTGD _PTCD _PTADD 
 inicializacionTimer       USES _TPM1SC _TPM1MOD 
@@ -1170,8 +1182,8 @@ decodificado              USES contadorPulsos v terminoStart
                                 leerVelocidad estadoControl setVelocidad 
 estadoControl             USES apagar encender 
 iniciarCambioDeModo       USES _TPM2SC _TPM2MOD _PTGD _PTCD 
-                                indicarCambioDeModo estado 
-indicarCambioDeModo       USES mostrarNumero delay 
+                                indicarCambioDeModo 
+indicarCambioDeModo       USES mostrarNumero delay _PUSH_CC _POP_CC 
 cambiarVelocidad          USES velElegida notificarConBuzzer 
 setVelocidad              USES velElegida 
 notificarConBuzzer        USES _PTGD 
@@ -1190,7 +1202,8 @@ tm1Interrupt              USES _TPM1SC controlEncendido contadorSegundos
 manejarDC0                USES pulsos cicloCompleto contadorCiclos velElegida 
                                 secuencia _PTBD 
 mostrarNumero             USES _PTCDD _PTCD 
-mostrarHorasEnDisplay     USES _IDIVS_STAR08 mostrarNumero delay 
+mostrarHorasEnDisplay     USES _IDIVS_STAR08 _IMUL_STAR08 digito mostrarNumero 
+                                delay 
 delay                     USES _TPM2SC _TPM2MOD 
 _ENTER_BINARY_L           USES _PUSH_ARGS_L 
 _ENTER_BINARY_L_LC        USES _PUSH_ARGS_L 
@@ -1235,6 +1248,10 @@ DEPENDENCY TREE
  |  |     +- mostrarNumero       
  |  |     |    
  |  |     +- delay               
+ |  |     |    
+ |  |     +- _PUSH_CC            
+ |  |     |    
+ |  |     +- _POP_CC             
  |  |          
  |  +- estadoPOnOff        
  |  |  | 
@@ -1284,6 +1301,8 @@ DEPENDENCY TREE
  |     |     | 
  |     |     +- _IDIVMOD            
  |     |          
+ |     +- _IMUL_STAR08        
+ |     |    
  |     +- mostrarNumero        (see above)
  |     |  
  |     +- delay                (see above)
@@ -1409,5 +1428,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 3850
+Total size of all blocks to be downloaded: 4141
 

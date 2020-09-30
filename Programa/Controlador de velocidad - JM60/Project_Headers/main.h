@@ -89,9 +89,9 @@
 #define ABIERTO 1
 #define PULSADO 0
 
-#define VACIO 0b00000001
-#define GUION 0b00000010
-#define CONFIRMACION 0b10011100
+#define VACIO 0b01001111
+#define GUION 0b00000001
+#define CONFIRMACION 0b01001110
 
 #define PRIMARIA 0
 #define SECUNDARIA 8
@@ -143,7 +143,7 @@ void apagar(void);
 void apagarTimer(void);
 void encender(void);
 
-char iniciarCambioDeModo(void);
+char iniciarCambioDeModo(char);
 void reiniciarHoras(void);
 void indicarCambioDeModo(void);
 
@@ -157,5 +157,8 @@ int fHash(int);
 
 void estadoControl(char);
 void setVelocidad(char);
+
+void mostrarNumero(unsigned char);
+void mostrarHorasEnDisplay(int);
 
 #endif /* MAIN_H_ */

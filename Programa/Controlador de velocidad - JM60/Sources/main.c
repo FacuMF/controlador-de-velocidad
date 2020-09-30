@@ -42,7 +42,7 @@ char pulsos = 0;
 
 unsigned char digito[10] = { 0b01111110, 0b00110000, 0b01101101, 0b01111001,
 		0b00110011, 0b01011011, 0b01011111, 0b01110000, 0b01111111, 0b01111011 };
-char estado = modoNormal;
+char estado = modoNormal, estadoAnterior = modoServicio;
 void main(void) {
 	char estadoOnOff = 0;
 	char estadoCV = 0;
@@ -62,9 +62,10 @@ void main(void) {
 
 		switch (estado) {
 		case cambioDeModo:
-			estado = iniciarCambioDeModo();
+			estado = iniciarCambioDeModo(estadoAnterior);
 			break;
 		case modoNormal:
+			estadoAnterior = estado;
 			estadoOnOff = estadoPOnOff(&pOnOff, &auxOnOff);
 			estadoCV = estadoPCV(&pCV, &auxCV);
 
@@ -82,9 +83,10 @@ void main(void) {
 				}
 			}
 			else
-				mostrarNumero(VACIO);
+				mostrarNumero(0);
 			break;
 		case modoServicio:
+			estadoAnterior = estado;
 			estadoOnOff = estadoPOnOff(&pOnOff, &auxOnOff);
 			estadoCV = estadoPCV(&pCV, &auxCV);
 			if(confirmacionPendiente){
@@ -103,17 +105,19 @@ void main(void) {
 				mostrarNumero(GUION);//Muestro un giuon que indica que me encuentro en modo servicio
 				if (estadoOnOff == 1){
 					confirmacionPendiente = 1;
+					notificarConBuzzer();
 				}
 	
-				if (estadoCV)
+				if (estadoCV){
 					mostrarHorasEnDisplay(cantidadHoras);
+					notificarConBuzzer();
+				}
 				
 			}
 			break;
 		default:
 			estado = modoNormal;
 		}
-
 	}
 }
 
@@ -221,34 +225,39 @@ void estadoControl(char onOff) {
 	(onOff) ? encender() : apagar();
 }
 
-char iniciarCambioDeModo() {
+char iniciarCambioDeModo(char estadoAnterior) {
 	int i;
 	char reinicioCompleto = 0;
 	TPM2SC = 0b0001111;
 	TPM2MOD = 62499; //1s
 	for (i = 0; i < TIEMPO_REINICIO; i++) {
-		while (ON_OFF == 1 && CV == 1 && TPM2SC_TOF == 0)
+		while (ON_OFF == 0 && CV == 0 && TPM2SC_TOF == 0)
 			;
 		TPM2SC_TOF = 0;
-		if (ON_OFF == 1 && CV == 1)
+		if (ON_OFF == 0 && CV == 0)
 			reinicioCompleto++;
 	}
 	TPM2SC = 0;
 	if (reinicioCompleto == TIEMPO_REINICIO) {
+		reinicioCompleto = 0;
 		indicarCambioDeModo();
-		if (estado == modoNormal)
+		if (estadoAnterior == modoNormal)
 			return modoServicio;
-		if (estado == modoServicio)
+		if (estadoAnterior == modoServicio)
 			return modoNormal;
-	} else
+	} else{
+		reinicioCompleto = 0;
 		return modoNormal;
+	}
 }
 
 void indicarCambioDeModo() {
 	int i;
-	mostrarNumero(VACIO);
+	unsigned char a = 0b11111111;
+	mostrarNumero(a);
 	for (i = 0; i < 6; i++) {
-		mostrarNumero(~VACIO);
+		a = ~a; 
+		mostrarNumero(a);
 		delay(5);
 	}
 }
@@ -447,6 +456,41 @@ void manejarDC0() {
 			contadorCiclos++;
 		} else
 			contadorCiclos = 0;
+	}
+}
+
+void mostrarNumero(unsigned char digitoMostrado){
+	int i,h;
+	int numero;
+	_DATA = SALIDA;
+	_CLK = SALIDA;
+	DATA = APAGADO;
+	CLK = APAGADO;
+	TR = 1;
+	
+	for (i = 0; i < 7; i++) {
+		numero = digitoMostrado & 1; 
+		DATA = numero;
+		CLK = 1;
+		CLK = 0;
+		digitoMostrado = digitoMostrado >> 1;
+	}
+	//for(i=0;i<20000;i++);
+	for(i=0;i<20000;i++);
+	TR = 0;
+}
+
+void mostrarHorasEnDisplay(int horas){
+	int horasAMostrar[4];
+	char i;
+	horasAMostrar[0] = horas/1000;
+	horasAMostrar[1] = horas/100 - horasAMostrar[0]*10;
+	horasAMostrar[2] = horas/10 - horasAMostrar[0]*100 - horasAMostrar[1]*10;
+	horasAMostrar[3] = horas - horasAMostrar[0]*1000 - horasAMostrar[1]*100 - horasAMostrar[2]*10;
+	
+	for(i = 0; i<4; i++){
+		mostrarNumero(digito[horasAMostrar[i]]);
+		delay(10);
 	}
 }
 

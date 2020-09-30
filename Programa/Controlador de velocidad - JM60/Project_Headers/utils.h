@@ -24,8 +24,8 @@
 #define ENTRADA 0
 #define SALIDA 1
 
-#define HORAS_BAJO 20
-#define HORAS_MEDIO 21
+#define HORAS_BAJO 2500
+#define HORAS_MEDIO 5000
 
 enum{
 	OFF = 0,
@@ -36,8 +36,6 @@ enum{
 
 char* my_itoa(int);
 char cicloCompleto(char);
-void mostrarNumero(unsigned char);
-void mostrarHorasEnDisplay(int);
 char determinarUso(int);
 void delay(char);
 
