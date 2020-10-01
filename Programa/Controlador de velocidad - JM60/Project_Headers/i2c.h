@@ -25,13 +25,13 @@
   
 */
 
-#define SDA PTBD_PTBD6
-#define SCL PTBD_PTBD4
+#define SDA PTDD_PTBD2
+#define SCL PTDD_PTBD1
 #define salida 1
 #define entrada 0
 
-#define DDR_SDA PTBDD_PTBDD6 // bit config. E/S pin SDA
-#define DDR_SCL PTBDD_PTBDD4 // bit config. E/S pin SDA
+#define DDR_SDA PTDDD_PTDDD2 // bit config. E/S pin SDA
+#define DDR_SCL PTDDD_PTDDD1 // bit config. E/S pin SDA
 
 /*   funciones I2C   */
 void I2Cdelay(void);

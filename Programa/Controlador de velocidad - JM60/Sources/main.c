@@ -427,11 +427,11 @@ __interrupt 15 void tm1Interrupt(void) {
 	}
 
 	if (contadorMinutos == 30)
-		//escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
+		escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
 
 	if (contadorMinutos == 60) {
 		cantidadHoras++;
-		//escribirHorasEnMemoria(cantidadHoras, PRIMARIA);
+		escribirHorasEnMemoria(cantidadHoras, PRIMARIA);
 		//escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
 		//TODO: revisar
 		contadorMinutos = 0;
