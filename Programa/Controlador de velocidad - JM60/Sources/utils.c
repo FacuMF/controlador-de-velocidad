@@ -17,7 +17,7 @@ char cicloCompleto(char pulsos) {
 }
 
 unsigned char* my_itoa(int number) {
-	unsigned char str[4];
+	unsigned char str[4] = {'0', '0', '0', '0'};
 	sprintf(str, "%d", number);
 	return str;
 }

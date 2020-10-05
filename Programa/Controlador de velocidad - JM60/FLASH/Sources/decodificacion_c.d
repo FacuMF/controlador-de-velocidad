@@ -10,5 +10,9 @@ Sources/decodificacion_c.obj: \
 	D:/Documentos/Airecontrol/Proyectos/Controlador\ de\ velocidad/controlador-de-velocidad/Programa/Controlador\ de\ velocidad\ -\ JM60/Project_Headers/derivative.h \
 	D:/Documentos/Airecontrol/Proyectos/Controlador\ de\ velocidad/controlador-de-velocidad/Programa/Controlador\ de\ velocidad\ -\ JM60/Project_Headers/mc9s08jm60.h \
 	C:/Freescale/CW\ MCU\ v11.1/MCU/lib/hc08c/include/stdlib.h \
-	C:/Freescale/CW\ MCU\ v11.1/MCU/lib/hc08c/include/libdefs.h 
+	C:/Freescale/CW\ MCU\ v11.1/MCU/lib/hc08c/include/libdefs.h \
+	C:/Freescale/CW\ MCU\ v11.1/MCU/lib/hc08c/include/string.h \
+	C:/Freescale/CW\ MCU\ v11.1/MCU/lib/hc08c/include/stdio.h \
+	C:/Freescale/CW\ MCU\ v11.1/MCU/lib/hc08c/include/stdarg.h \
+	C:/Freescale/CW\ MCU\ v11.1/MCU/lib/hc08c/include/errno.h 
 

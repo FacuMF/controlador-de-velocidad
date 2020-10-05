@@ -11,46 +11,14 @@ unsigned char buff[ 20 ];
 
 
 /* escribe cantidad de bytes desde dirección - para 24Cxx */
-void escribir_memo( const unsigned char* buffer, unsigned int direccion, unsigned char cantidad) {
-	unsigned char byte_dire;
-	unsigned char i;
-	
-	/* enviar start */
-	i2c_start();
-	
-	                    // para 24C...   A2 A1 A0 
-	i2c_tx(0b10100000); //    1010        0  0  0   0 = escribir
-	
-	/* enviar address hi */
-	byte_dire = direccion >> 8;	
-	i2c_tx( byte_dire ); 
-	
-	/* enviar address lo */
-	byte_dire = direccion & 0x00FF;	
-	i2c_tx( byte_dire ); // address lo
-
-	/* enviar datos */
-	for ( i = 0; i < cantidad; i++) {	
-		i2c_tx( *buffer );
-		I2Cdelay();
-		
-		buffer++;
-	}
-
-	/* enviar stop */
-	i2c_stop();	
-	
-	/* espera fin ciclo escritura (ACK polling) */	
-	do {
-		i2c_start();
-	                            // para 24C...   A2 A1 A0 
-	        i2c_tx(0b10100000); //    1010        0  0  0   0 = escribir				
-	} while ( i2c_error == 1);	
+void escribir_memo( const unsigned char* buffer, unsigned char direccion, unsigned char cantidad) {
+	for(i=0;i<cantidad;i++)
+		escribir_byte(i+direccion,buffer[i]);
 	
 }
 
 /* lee cantidad bytes desde a direccion - para 24Cxx */
-void leer_memo( unsigned char* buffer, unsigned int direccion, unsigned char cantidad){
+void leer_memo( unsigned char* buffer, unsigned char direccion, unsigned char cantidad){
 	unsigned char p;	
 	unsigned char byte_dire;
 	
@@ -59,12 +27,8 @@ void leer_memo( unsigned char* buffer, unsigned int direccion, unsigned char can
 	                    // para 24C...   A2 A1 A0 
 	i2c_tx(0b10100000); //    1010        0  0  0   0 = escribir	
 		
-	/* enviar address hi */
-	byte_dire = direccion >> 8;	
-	i2c_tx( byte_dire ); 
-	
 	/* enviar address lo */
-	byte_dire = direccion & 0x00FF;	
+	byte_dire = direccion;	
 	i2c_tx( byte_dire ); 
 
 	I2Cdelay();
@@ -77,9 +41,8 @@ void leer_memo( unsigned char* buffer, unsigned int direccion, unsigned char can
 			            // para 24C...   A2 A1 A0 
 	        i2c_tx(0b10100001); //    1010        0  0  0   1 = leer
 		
+		*(buffer + p) = i2c_rx(1);
 		p++;
-		*buffer = i2c_rx(1);
-		buffer++;
 		
 		i2c_stop();
 
@@ -88,7 +51,7 @@ void leer_memo( unsigned char* buffer, unsigned int direccion, unsigned char can
 }
 
 /* escribe un byte a direccion - para 24Cxx */
-void escribir_byte( unsigned int direccion, unsigned char dato ) {
+void escribir_byte( unsigned char direccion, unsigned char dato ) {
 	unsigned char byte_dire;
 	
 	/* enviar start */
@@ -97,12 +60,8 @@ void escribir_byte( unsigned int direccion, unsigned char dato ) {
 	                    // para 24C...   A2 A1 A0 
 	i2c_tx(0b10100000); //    1010        0  0  0   0 = escribir	
 	
-	/* enviar address hi */
-	byte_dire = direccion >> 8;
-	i2c_tx( byte_dire ); 
-	
 	/* enviar address lo */
-	byte_dire = direccion & 0x00FF;
+	byte_dire = direccion;
 	i2c_tx( byte_dire ); 
 
 	I2Cdelay();
@@ -123,7 +82,7 @@ void escribir_byte( unsigned int direccion, unsigned char dato ) {
 }
 
 /* devuelve byte en direccion - para 24Cxx */
-unsigned char leer_byte( unsigned int direccion ) {
+unsigned char leer_byte( unsigned char direccion ) {
 	unsigned char aux;
 	unsigned char byte_dire;
 	
@@ -132,12 +91,8 @@ unsigned char leer_byte( unsigned int direccion ) {
 	                    // para 24C...   A2 A1 A0 
 	i2c_tx(0b10100000); //    1010        0  0  0   0 = escribir	
 
-	/* enviar address hi */
-	byte_dire = direccion >> 8;		
-	i2c_tx( byte_dire ); 
-
 	/* enviar address lo */
-	byte_dire = direccion & 0x00FF;		
+	byte_dire = direccion;		
 	i2c_tx( byte_dire ); 
 
 	I2Cdelay();

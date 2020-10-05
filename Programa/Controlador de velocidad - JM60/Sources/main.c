@@ -375,7 +375,7 @@ void apagarTimer() {
 
 void encender() {
 	inicializacionTimer();
-	//cantidadHoras = leerHorasDeMemoria();
+	cantidadHoras = leerHorasDeMemoria();
 	controlEncendido = 1;
 	notificarConBuzzer();
 }
@@ -417,7 +417,6 @@ __interrupt 25 void pinInterrupt() {
 
 __interrupt 15 void tm1Interrupt(void) {
 	TPM1SC_TOF = 0;
-	//TR = 0;
 	if (controlEncendido) {
 		contadorSegundos++;
 	}
@@ -430,19 +429,21 @@ __interrupt 15 void tm1Interrupt(void) {
 		escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
 
 	if (contadorMinutos == 60) {
+		contadorMinutos = 0; 
+		contadorSegundos = 0;
 		cantidadHoras++;
 		escribirHorasEnMemoria(cantidadHoras, PRIMARIA);
 		//escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
 		//TODO: revisar
-		contadorMinutos = 0;
 	}
 }
 
 void escribirHorasEnMemoria(int horas, int posicion) {
 	char i;
-	unsigned char horasStr[4];
+	unsigned char horasStr[4] = { '0', '0', '0', '0'};
 	int cantidadARellenar;
-	memcpy(horasStr, my_itoa(horas), 4);
+	strcpy(horasStr,my_itoa(horas));
+	//memcpy(horasStr, my_itoa(horas), 4);
 	cantidadARellenar = 4 - strlen(horasStr);
 	for (i = 0; i < cantidadARellenar; i++)
 		horasStr[i] = '0';
@@ -460,13 +461,12 @@ void manejarDC0() {
 }
 
 void mostrarNumero(unsigned char digitoMostrado){
-	int i,h;
+	int i;
 	int numero;
 	_DATA = SALIDA;
 	_CLK = SALIDA;
 	DATA = APAGADO;
 	CLK = APAGADO;
-	TR = 1;
 	
 	for (i = 0; i < 7; i++) {
 		numero = digitoMostrado & 1; 
@@ -475,9 +475,7 @@ void mostrarNumero(unsigned char digitoMostrado){
 		CLK = 0;
 		digitoMostrado = digitoMostrado >> 1;
 	}
-	//for(i=0;i<20000;i++);
 	for(i=0;i<20000;i++);
-	TR = 0;
 }
 
 void mostrarHorasEnDisplay(int horas){

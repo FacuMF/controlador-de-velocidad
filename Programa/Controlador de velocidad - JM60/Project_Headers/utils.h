@@ -10,6 +10,9 @@
 
 #include <hidef.h> /* for EnableInterrupts macro */
 #include "derivative.h" /* include peripheral declarations */
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
 #define _DATA PTCDD_PTCDD0
 #define DATA PTCD_PTCD0
