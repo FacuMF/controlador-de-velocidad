@@ -92,7 +92,7 @@ void main(void) {
 			if(confirmacionPendiente){
 				mostrarNumero(CONFIRMACION);
 				if (estadoOnOff == 1){
-					//reiniciarHoras();
+					reiniciarHoras();
 					confirmacionPendiente = 0;
 					notificarConBuzzer();
 				}
@@ -264,6 +264,7 @@ void indicarCambioDeModo() {
 
 void reiniciarHoras() {
 	escribirHorasEnMemoria(0, PRIMARIA);
+	escribirHorasEnMemoria(0, SECUNDARIA);
 	mostrarHorasEnDisplay(0);
 }
 
@@ -390,6 +391,7 @@ int leerHorasDeMemoria() {
 	if (!esCorrecta) {
 		leer_memo(horas, 8, 4);
 		horasLeidas = atoi(horas);
+		escribirHorasEnMemoria(horasLeidas, PRIMARIA);
 	}
 	return horasLeidas;
 
@@ -400,7 +402,7 @@ char chequeoDeIntegridad(int horasLeidas) {
 	unsigned char horas[4];
 	int y1 = 0, y2 = 0;
 	leer_memo(horas, 8, 4);
-	horasLeidas = atoi(horas);
+	horasDeResguardo = atoi(horas);
 	y1 = fHash(horasLeidas);
 	y2 = fHash(horasDeResguardo);
 	return y1 == y2;
@@ -440,13 +442,12 @@ __interrupt 15 void tm1Interrupt(void) {
 
 void escribirHorasEnMemoria(int horas, int posicion) {
 	char i;
-	unsigned char horasStr[4] = { '0', '0', '0', '0'};
+	unsigned char horasStr[4];
 	int cantidadARellenar;
-	strcpy(horasStr,my_itoa(horas));
-	//memcpy(horasStr, my_itoa(horas), 4);
+	sprintf(horasStr, "%d", horas);
 	cantidadARellenar = 4 - strlen(horasStr);
 	for (i = 0; i < cantidadARellenar; i++)
-		horasStr[i] = '0';
+		horasStr[3 - i] = '0';
 	escribir_memo(horasStr, posicion, strlen(horasStr));
 }
 
