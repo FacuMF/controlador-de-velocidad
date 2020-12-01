@@ -110,7 +110,6 @@ void main(void) {
 	
 				if (estadoCV){
 					mostrarHorasEnDisplay(cantidadHoras);
-					notificarConBuzzer();
 				}
 				
 			}
@@ -155,7 +154,7 @@ void inicializacionPuertos() {
 
 void inicializacionTimer() {
 	TPM1SC = 0b01001111;
-	TPM1MOD = 62499; //Divisor: 128 => TOF cada 1s
+	TPM1MOD = 15624; //Divisor: 128 => TOF cada 1s
 }
 
 void inicializacionPinInterrupts() {
@@ -263,8 +262,9 @@ void indicarCambioDeModo() {
 }
 
 void reiniciarHoras() {
-	escribirHorasEnMemoria(0, PRIMARIA);
-	escribirHorasEnMemoria(0, SECUNDARIA);
+	cantidadHoras = 0;
+	escribirHorasEnMemoria(cantidadHoras, PRIMARIA);
+	escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
 	mostrarHorasEnDisplay(0);
 }
 
@@ -385,11 +385,11 @@ int leerHorasDeMemoria() {
 	int horasLeidas;
 	unsigned char horas[4];
 	char esCorrecta;
-	leer_memo(horas, 0, 4);
+	leer_memo(horas, PRIMARIA, 4);
 	horasLeidas = atoi(horas);
 	esCorrecta = chequeoDeIntegridad(horasLeidas);
 	if (!esCorrecta) {
-		leer_memo(horas, 8, 4);
+		leer_memo(horas, SECUNDARIA, 4);
 		horasLeidas = atoi(horas);
 		escribirHorasEnMemoria(horasLeidas, PRIMARIA);
 	}
@@ -422,7 +422,7 @@ __interrupt 15 void tm1Interrupt(void) {
 	if (controlEncendido) {
 		contadorSegundos++;
 	}
-	if (contadorSegundos == 60) {
+	if (contadorSegundos == 240) {
 		contadorSegundos = 0;
 		contadorMinutos++;
 	}
@@ -435,8 +435,7 @@ __interrupt 15 void tm1Interrupt(void) {
 		contadorSegundos = 0;
 		cantidadHoras++;
 		escribirHorasEnMemoria(cantidadHoras, PRIMARIA);
-		//escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
-		//TODO: revisar
+		escribirHorasEnMemoria(cantidadHoras, SECUNDARIA);
 	}
 }
 
@@ -488,6 +487,7 @@ void mostrarHorasEnDisplay(int horas){
 	horasAMostrar[3] = horas - horasAMostrar[0]*1000 - horasAMostrar[1]*100 - horasAMostrar[2]*10;
 	
 	for(i = 0; i<4; i++){
+		notificarConBuzzer();
 		mostrarNumero(digito[horasAMostrar[i]]);
 		delay(10);
 	}
