@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=GND Pin=J3-1
+Removed Pin From Net: NetName=VCC Pin=J3-3
+Removed Member From Class: ClassName=Controlador de velocidad v2 Member=J3
+Added Pin To Net: NetName=VCC Pin=U2-9

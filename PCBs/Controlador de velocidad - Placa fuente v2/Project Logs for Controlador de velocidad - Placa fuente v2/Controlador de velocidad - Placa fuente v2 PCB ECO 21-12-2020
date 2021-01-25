@@ -1,0 +1,14 @@
+Removed Member From Class: ClassName=Controlador de velocidad - Placa fuente v2 Member=J1
+Change Component Comment : Designator=R5 Old Comment=1k New Comment=10k
+Change Component Comment : Designator=R6 Old Comment=1K New Comment=220
+Change Component Comment : Designator=R6 Old Comment=220 New Comment=1K
+Added Pin To Net: NetName=GND Pin=p1-1
+Added Pin To Net: NetName=GND Pin=p1-2
+Added Pin To Net: NetName=GND Pin=p1-3
+Added Pin To Net: NetName=GND Pin=p1-4
+Added Pin To Net: NetName=GND Pin=p1-5
+Added Pin To Net: NetName=GND Pin=p1-6
+Added Pin To Net: NetName=GND Pin=p1-21
+Added Pin To Net: NetName=GND Pin=p1-22
+Added Pin To Net: NetName=GND Pin=p1-23
+Added Pin To Net: NetName=GND Pin=p1-24
