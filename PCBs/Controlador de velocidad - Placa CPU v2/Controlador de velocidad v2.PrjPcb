@@ -84,6 +84,15 @@ ClassGenNCAutoScope=None
 DocumentPath=..\Controlador de velocidad\Controlador de velocidad.PcbDoc.htm
 
 [GeneratedDocument2]
+DocumentPath=Controlador de velocidad v2.EXTREP
+
+[GeneratedDocument3]
+DocumentPath=Controlador de velocidad v2.REP
+
+[GeneratedDocument4]
+DocumentPath=Controlador de velocidad v2.RUL
+
+[GeneratedDocument5]
 DocumentPath=Project Outputs for Controlador de velocidad v2\Pick Place for Controlador de velocidad v2.txt
 
 [OutputGroup1]
