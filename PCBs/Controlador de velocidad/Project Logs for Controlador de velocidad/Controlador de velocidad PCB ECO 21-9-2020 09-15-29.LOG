@@ -1,9 +1,0 @@
-Removed Pin From Net: NetName=NetD1_1 Pin=R3-1
-Removed Pin From Net: NetName=NetD3_1 Pin=R5-1
-Change Component Comment : Designator=1 Old Comment=24C65T/SM New Comment=24C64T/SM
-Change Component Comment : Designator=BZ1 Old Comment=BUZZER New Comment=BUZZER CON OSCILADOR
-Change Component Designator: OldDesignator= NewDesignator=J13
-Added Pin To Net: NetName=NetD3_1 Pin=R3-1
-Added Pin To Net: NetName=NetD1_1 Pin=R5-1
-Added Member To Class: ClassName=Controlador de velocidad Member=Component J13 CON2
-Added Member To Class: ClassName=Controlador de velocidad Member=Component J14 CON2

@@ -1,6 +1,0 @@
-   Printed Document[Controlador de velocidad - Placa superior.PcbDoc]
-
-Files Generated   : 0
-Documents Printed : 1
-
-Finished Output Generation At 11:43:44 On 19/11/2020

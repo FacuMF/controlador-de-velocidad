@@ -1,7 +1,0 @@
-Added Component: Designator=J2(SIP4)
-Added Pin To Net: NetName=VCC Pin=J2-1
-Added Pin To Net: NetName=DC0 Pin=J2-2
-Added Pin To Net: NetName=OPTO Pin=J2-3
-Added Pin To Net: NetName=GND Pin=J2-4
-Added Member To Class: ClassName=Controlador de velocidad Member=Component J2 CON4
-Added Room: Name=Controlador de velocidad

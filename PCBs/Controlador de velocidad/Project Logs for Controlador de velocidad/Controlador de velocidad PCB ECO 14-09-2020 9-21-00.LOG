@@ -1,5 +1,0 @@
-Added Pin To Net: NetName=SH4-4 Pin=J5-2
-Added Pin To Net: NetName=VCC-2 Pin=J9-3
-Added Pin To Net: NetName=SH4-4 Pin=U4-4
-Change Net Name : Old Net Name=VCC-2 New Net Name=SH4-3
-Added Room: Name=Controlador de velocidad

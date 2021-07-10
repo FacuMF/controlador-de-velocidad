@@ -1,9 +1,0 @@
-Removed Pin From Net: NetName=GND Pin=J3-2
-Added Component: Designator=J4(SIP5)
-Added Pin To Net: NetName=NetJ3_2 Pin=J3-2
-Added Pin To Net: NetName=12V Pin=J4-1
-Added Pin To Net: NetName=12V Pin=J4-2
-Added Pin To Net: NetName=GND Pin=J4-4
-Added Pin To Net: NetName=GND Pin=J4-5
-Added Member To Class: ClassName=Controlador de velocidad Member=Component J4 CON5
-Added Room: Name=Controlador de velocidad

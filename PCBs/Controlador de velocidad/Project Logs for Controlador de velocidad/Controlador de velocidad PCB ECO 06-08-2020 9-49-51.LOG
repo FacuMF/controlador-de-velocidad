@@ -1,4 +1,0 @@
-Added Component: Designator=BZ1(BUZZER 12MM)
-Added Pin To Net: NetName=VCC Pin=BZ1-1
-Added Pin To Net: NetName=NetBZ1_2 Pin=BZ1-2
-Added Member To Class: ClassName=Controlador de velocidad Member=Component BZ1 BUZZER

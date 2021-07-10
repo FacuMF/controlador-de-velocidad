@@ -1,6 +1,0 @@
-Change Component Library : Designator=IR1 Old Library=Integrated_Lib_1.IntLib New Library=*
-Added Pin To Net: NetName=RX Pin=IR1-1
-Added Pin To Net: NetName=GND Pin=IR1-2
-Added Pin To Net: NetName=VCC Pin=IR1-3
-Added Member To Class: ClassName=Controlador de velocidad Member=Component IR1 IRM8601S
-Added Room: Name=Controlador de velocidad

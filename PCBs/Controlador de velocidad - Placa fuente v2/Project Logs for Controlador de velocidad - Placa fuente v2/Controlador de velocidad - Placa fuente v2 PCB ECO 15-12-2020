@@ -1,7 +1,0 @@
-Change Component Comment : Designator=R5 Old Comment=1k New Comment=10k
-Added Pin To Net: NetName=12V Pin=D6-2
-Added Pin To Net: NetName=NetD6_1 Pin=D6-1
-Added Pin To Net: NetName=NetD6_1 Pin=RLY1-4
-Added Pin To Net: NetName=NetD6_1 Pin=T4-2
-Added Net: Name=NetD6_1
-Added Member To Class: ClassName=Controlador de velocidad - Placa fuente v2 Member=Component D6 DIODO
